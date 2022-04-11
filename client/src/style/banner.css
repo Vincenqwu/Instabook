@@ -1,0 +1,46 @@
+.bannerContainer {
+  height: 50px;
+  width: 100%;
+  background-color: #15a3bd;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.bannerLeft {
+  flex: 4;
+}
+
+.bannerMiddle {
+  flex: 4;
+}
+
+.bannerRight {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.notLogin {
+  display: flex;
+}
+
+.bannerImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.logo {
+  font-size: 26px;
+  margin-left: 22px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
