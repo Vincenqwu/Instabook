@@ -2,9 +2,9 @@ import React from 'react';
 import {useState, useEffect} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import JSONPretty from 'react-json-pretty'
-import TopBar from './Banner';
-import Leftbar from './Leftbar';
-import Feeds from './Feeds';
+import TopBar from '../components/Banner';
+import Leftbar from '../components/Leftbar';
+import Feeds from '../components/Feeds';
 import { useParams } from "react-router"
 
 export default function Profile() {

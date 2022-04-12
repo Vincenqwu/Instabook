@@ -1,6 +1,6 @@
-import Banner from "./Banner";
-import Leftbar from "./Leftbar";
-import Feeds from "./Feeds";
+import Banner from "../components/Banner";
+import Leftbar from "../components/Leftbar";
+import Feeds from "../components/Feeds";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import "../style/home.css"

@@ -1,9 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Profile from "./components/Profile";
-import NotFound from "./components/NotFound";
-import Home from "./components/Home";
+import Profile from "./pages/Profile";
+import NotFound from "./pages/NotFound";
+import Home from "./pages/Home";
+import Followers from "./pages/Followers";
+import Following from "./pages/Following";
+import Nearby from "./pages/Nearby";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { AuthTokenProvider } from "./AuthTokenContext";
 
@@ -37,15 +40,18 @@ ReactDOM.render(
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      redirectUri={window.location.origin}
+      redirectUri={window.location.origin + "/home"}
       audience={audience}
       scope={requestedScopes.join(" ")}
     >
       <AuthTokenProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home/>} />
-            <Route path="profile/:username" element={<Profile />} />
+            <Route path="/home" element={<Home/>} />
+            <Route path="/profile/:username" element={<Profile />} />
+            <Route path = "/followers" element={<Followers />} />
+            <Route path = "/following" element={<Following />} />
+            <Route path = "/nearby" element={<Nearby />} />
             <Route path="*" element = {<NotFound />} />
           </Routes>
         </BrowserRouter>
