@@ -1,7 +1,8 @@
 import React from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRef } from 'react';
-
+import ImageIcon from '@mui/icons-material/Image';
+import "../style/share.css"
 export default function Share() {
   const { isAuthenticated, user } = useAuth0();
   const inputRef = useRef();
@@ -16,20 +17,25 @@ export default function Share() {
   }
 
   return (
-    isAuthenticated && ( <div className='addpost'>
-      <form onSubmit={handlePostSubmit}>
-        <label>Add new post:</label>
-        <input
-          type='text'
-          className='input'
-          placeholder={"Share anything " + user.name }
-          ref={inputRef}
-        />
-        <button className="shareButton" type="submit">
-          Share
-        </button>
-      </form>
+    <div className="share">
+      <div className="shareWrapper">
+        <div className="shareTop">
+          <img className="shareProfileImg" src={process.env.PUBLIC_URL + "/images/noAvatar.png"} alt="" />
+          <input
+            placeholder="What's in your mind Vincent?"
+            className="shareInput"
+          />
+        </div>
+        <hr className="shareHr" />
+        <div className="shareBottom">
+          <div className="shareOption">
+            <ImageIcon htmlColor="tomato" className="shareIcon" />
+            <span className="shareOptionText">Add A Image</span>
+          </div>
+          <button className="shareButton">Share</button>
+        </div>
+
+      </div>
     </div>
-    )
   )
 }

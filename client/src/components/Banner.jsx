@@ -1,6 +1,7 @@
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import SearchIcon from '@mui/icons-material/Search';
 import "../style/banner.css";
 
 export default function Banner() {
@@ -16,12 +17,14 @@ export default function Banner() {
         </Link>
       </div>
       <div className="bannerMiddle">
-        <div className="searchbar">
-          <button className="searchButton" >Search</button>
+        <div className="searchbar" >
+          {/* <button className="searchButton" >Search</button> */}
+          <SearchIcon className="searchIcon" onClick={() => console.log("here")}/>
           <input
-            placeholder="Search for a user or post"
+            placeholder="Search for a user by username"
             className="searchInput"
           />
+          
         </div>
       </div>
       <div className="bannerRight">

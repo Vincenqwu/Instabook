@@ -7,9 +7,7 @@ import "../style/home.css"
 
 export default function Home() {
 
-  const navigate = useNavigate();
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const signUp = () => loginWithRedirect({ screen_hint: "signup" });
 
 
   return (

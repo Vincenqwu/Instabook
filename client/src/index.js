@@ -7,8 +7,10 @@ import Home from "./pages/Home";
 import Followers from "./pages/Followers";
 import Following from "./pages/Following";
 import Nearby from "./pages/Nearby";
+import VerifyUser from "./pages/VerifyUser";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { AuthTokenProvider } from "./AuthTokenContext";
+import { UserProvider } from "./UserContext";
 
 const requestedScopes = [
   "read:post",
@@ -44,18 +46,22 @@ ReactDOM.render(
       audience={audience}
       scope={requestedScopes.join(" ")}
     >
-      <AuthTokenProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/home" element={<Home/>} />
-            <Route path="/profile/:username" element={<Profile />} />
-            <Route path = "/followers" element={<Followers />} />
-            <Route path = "/following" element={<Following />} />
-            <Route path = "/nearby" element={<Nearby />} />
-            <Route path="*" element = {<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthTokenProvider>
+      <UserProvider>
+        <AuthTokenProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/verify-user" element={<VerifyUser />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/profile/:username" element={<Profile />} />
+              <Route path="/followers" element={<Followers />} />
+              <Route path="/following" element={<Following />} />
+              <Route path="/nearby" element={<Nearby />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthTokenProvider>
+      </UserProvider>
     </Auth0Provider>
   </React.StrictMode>,
   document.getElementById("root")

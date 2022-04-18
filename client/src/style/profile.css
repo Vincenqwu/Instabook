@@ -1,0 +1,40 @@
+.profile-container {
+  
+  display:flex;
+
+}
+
+.prifile-details{
+  height:fit-content;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  padding:10px
+
+}
+
+.profile-details-wrapper {
+  padding:10px;
+}
+
+
+.profileUserImg{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 150px;
+  border: 3px solid white;
+}
+
+.profileInfoName{
+  font-size: 24px;
+}
+
+.profileEditForm {
+  display: flex;
+  flex-direction: column;
+}

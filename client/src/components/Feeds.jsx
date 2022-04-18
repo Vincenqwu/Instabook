@@ -2,6 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import Post from "./Post";
 import Share from "./Share";
 import { useAuth0 } from "@auth0/auth0-react";
+import "../style/feeds.css"
+import { Posts } from "../dummyData";
+
 
 export default function Feeds({ username }) {
   const { user, isAuthenticated } = useAuth0();
@@ -24,7 +27,10 @@ export default function Feeds({ username }) {
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <h3>Posts</h3>
+        <Share />
+        {Posts.map((p) => (
+          <Post key={p.id} post={p} />
+        ))}
       </div>
     </div>
   );
