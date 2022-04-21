@@ -10,6 +10,7 @@ const postRoute = require("./routes/post");
 const userRoute = require("./routes/user");
 const profileRoute = require("./routes/profile");
 const authRoute = require("./routes/auth");
+const commentRoute = require("./routes/comment");
 
 app.use(express.json());
 
@@ -17,6 +18,7 @@ app.use("/", authRoute);
 app.use("/post/", postRoute);
 app.use("/user/", userRoute);
 app.use("/profile/", profileRoute);
+app.use("/comment/", commentRoute);
 
 app.get("/test", async (req, res) => {
     console.log("test");

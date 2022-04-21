@@ -233,9 +233,9 @@ router.post("/:id/comment", async (req, res) => {
                 id: id
             },
             select: {
-                comment: true
+                comments: true
             }
-        }).comment;
+        }).then(data => data.comments);
 
         comments.push(comment.id);
 
@@ -244,12 +244,13 @@ router.post("/:id/comment", async (req, res) => {
                 id: id,
             },
             data: {
-                comment: comments,
+                comments: comments,
             }
         })
 
         res.status(200).json(comment);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 })
