@@ -11,8 +11,8 @@ const config = {
   clientID: process.env.AUTH0_CLIENT_ID,
   issuerBaseURL: process.env.AUTH0_ISSUER,
   routes: {
-    callback: '/callback',
-  },
+    login: false,
+  }
 };
 
 router.use(auth(config));
@@ -22,6 +22,8 @@ router.get('/', (req, res) => {
   console.log("default page");
   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
 });
+
+router.get('/login', (req, res) => res.oidc.login({ returnTo: 'http://localhost:3000/home' }));
 
 // verify if the user is registered in auth0 and server db
 router.get("/verify", requiresAuth(), async (req, res) => {
