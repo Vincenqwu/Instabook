@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const https = require("https");
+const cors = require("cors");
 const fs = require("fs")
 const {PrismaClient} = require("@prisma/client")
 const prisma = new PrismaClient();
@@ -13,6 +14,7 @@ const authRoute = require("./routes/auth");
 const commentRoute = require("./routes/comment");
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/", authRoute);
 app.use("/post/", postRoute);
@@ -37,6 +39,6 @@ app.get("/test", async (req, res) => {
 //         console.log("server is running at port 443");
 //     })
 
-app.listen(3000, "0.0.0.0", () => {
-    console.log("server running on 3000");
+app.listen(8000, "0.0.0.0", () => {
+    console.log("server running on 8000");
 })
