@@ -1,13 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 import SearchIcon from '@mui/icons-material/Search';
 import "../style/banner.css";
 
-export default function Banner() {
-  const { user } = useAuth0();
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const signUp = () => loginWithRedirect({ screen_hint: "signup" });
+export default function Banner({isLoggedIn, authInfo}) {
 
   return (
     <div className="bannerContainer">
@@ -18,39 +14,39 @@ export default function Banner() {
       </div>
       <div className="bannerMiddle">
         <div className="searchbar" >
-          {/* <button className="searchButton" >Search</button> */}
-          <SearchIcon className="searchIcon" onClick={() => console.log("here")}/>
+          <SearchIcon className="searchIcon" onClick={() => console.log("here")} />
           <input
             placeholder="Search for a user by username"
             className="searchInput"
           />
-          
+
         </div>
       </div>
       <div className="bannerRight">
         <div className="bannerLoginLogout">
 
-          {!isAuthenticated ? (
+          {!isLoggedIn ? (
             <div className="notLogin">
-              <button className="btn-secondary" onClick={signUp}>
-                Create Account
-              </button>
-              <button className="btn-login" onClick={loginWithRedirect}>
-                Login
-              </button>
+              <a href={process.env.REACT_APP_API_URL + "/login"}>
+                <button className="btn-loginout">
+                  Login
+                </button>
+              </a>
             </div>
           ) : (
-            <button className="btn-logout" onClick={() => logout()}>
-              Log Out
+            <a href={process.env.REACT_APP_API_URL + '/logout'}>
+            <button className="btn-loginout">
+              Logout
             </button>
+          </a>
           )}
         </div>
         <div className="bannerProfile">
-          {isAuthenticated ? (
-            <Link to={`/profile/${user.name}`}>
+          {isLoggedIn ? (
+            <Link to={`/profile/${authInfo.username}`}>
               <img
                 src={
-                  user.profilePicture
+                  authInfo.picture
                 }
                 alt=""
                 className="bannerImg"

@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   position: sticky;
+  top: 0;
 }
 
 .bannerLeft {
@@ -24,6 +25,16 @@
 
 .notLogin {
   display: flex;
+}
+
+.btn-loginout {
+  width: 60px;
+  height: 20px;
+  background: white;
+  color:black;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
 }
 
 .bannerImg {
