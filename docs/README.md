@@ -141,23 +141,23 @@ Get a single post
 
 ### frontend
 
-```json
-{
-    "id": "62600ba4a8200d11a28ce83c"
-}
-```
-
 ### backend
 
 ```json
 {
-    "id": "62600ba4a8200d11a28ce83c",
+    "id": "62663fad2031c21e2de242b6",
     "content": "abasldkfjlasj",
     "image": null,
-    "createAt": "2022-04-20T13:33:24.366Z",
-    "authorId": "auth0|625fd39599de6d0069fbe1a1",
+    "createAt": "2022-04-25T06:29:01.434Z",
+    "authorId": "auth0|625e1a95359d0b006f4e99e9",
     "likedBy": [],
-    "comments": []
+    "comments": [],
+    "author": {
+        "auth0Id": "auth0|625e1a95359d0b006f4e99e9",
+        "email": "sjqskqqp@gmail.com",
+        "username": "sjqskqqp",
+        "picture": "https://s.gravatar.com/avatar/173c5b90fa206be4fabc7aed7661cabc?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fsj.png"
+    }
 }
 ```
 
@@ -291,5 +291,61 @@ unlike a post
     "authorId": "auth0|625fd39599de6d0069fbe1a1",
     "likedBy": [],
     "comments": []
+}
+```
+
+## POST("/post/:id/comment")
+
+### Usage
+
+comment to a post
+
+### frontend
+
+```json
+{
+    "content": "abasldkfjlasj",
+}
+```
+
+### backend
+
+```json
+{
+    "id": "62666d416d4330704132fe56",
+    "content": "another testing comments",
+    "authorId": "auth0|625e1a95359d0b006f4e99e9",
+    "createAt": "2022-04-25T09:43:29.322Z",
+    "author": {
+        "auth0Id": "auth0|625e1a95359d0b006f4e99e9",
+        "email": "sjqskqqp@gmail.com",
+        "username": "sjqskqqp",
+        "picture": "https://s.gravatar.com/avatar/173c5b90fa206be4fabc7aed7661cabc?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fsj.png"
+    }
+}
+```
+
+## GET("/comment/:id")")
+
+### Usage
+
+get a comment
+
+### frontend
+
+### backend
+
+```json
+{
+    "id": "62666d416d4330704132fe56",
+    "content": "another testing comments",
+    "authorId": "auth0|625e1a95359d0b006f4e99e9",
+    "createAt": "2022-04-25T09:43:29.322Z",
+    "author": {
+        "auth0Id": "auth0|625e1a95359d0b006f4e99e9",
+        "email": "sjqskqqp@gmail.com",
+        "username": "sjqskqqp",
+        "picture": "https://s.gravatar.com/avatar/173c5b90fa206be4fabc7aed7661cabc?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fsj.png"
+    }
 }
 ```
