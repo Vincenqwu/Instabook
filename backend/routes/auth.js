@@ -1,7 +1,13 @@
 const router = require("express").Router();
 const {PrismaClient} = require("@prisma/client")
 const prisma = new PrismaClient();
-const { auth, requiresAuth } = require('express-openid-connect');
+const { auth } = require('express-openid-connect');
+const cors = require("cors");
+
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true
+}
 
 const config = {
   authRequired: false,
@@ -16,6 +22,8 @@ const config = {
 };
 
 router.use(auth(config));
+router.use(express.json());
+// router.use(jwtCheck);
 
 // test if user is logged in or not
 router.get('/', (req, res) => {
@@ -23,35 +31,43 @@ router.get('/', (req, res) => {
   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
 });
 
-router.get('/login', (req, res) => res.oidc.login({ returnTo: 'http://localhost:3000/home' }));
+router.get('/login', (req, res) => res.oidc.login({ 
+    returnTo: `${process.env.CLIENT_BASE_URL}/verify-user`
+}));
 
-// verify if the user is registered in auth0 and server db
-router.get("/verify", requiresAuth(), async (req, res) => {
+// if user is logged in, return its user information and json else 
+router.get("/verify", cors(corsOptions), async (req, res) => {
+  try {
+    console.log("verify");
+    const auth0Id = req.oidc.user.sub;
+    const email = req.oidc.user.name;
+    const nickname = req.oidc.user.nickname;
+    const picture = req.oidc.user.picture;
 
-  const auth0Id = req.oidc.user.sub;
-  const email = req.oidc.user.name;
-  const nickname = req.oidc.user.nickname;
-  const picture = req.oidc.user.picture;
-
-  const user = await prisma.user.findUnique({
-    where: {
-      auth0Id: auth0Id
-    }
-  });
-
-  if (user) {
-    res.status(200).json(user);
-  } else {
-    const newUser = await prisma.user.create({
-      data: {
-        auth0Id: auth0Id,
-        email: email,
-        username: nickname,
-        picture: picture,
-        location: null,
+    const user = await prisma.user.findUnique({
+      where: {
+        auth0Id: auth0Id
       }
-    })
-    res.status(200).json(newUser);
+    });
+
+    if (user) {
+      console.log(user);
+      res.status(200).json(user);
+    } else {
+      const newUser = await prisma.user.create({
+        data: {
+          auth0Id: auth0Id,
+          email: email,
+          username: nickname,
+          picture: picture,
+          location: null,
+        }
+      })
+      res.status(200).json(newUser);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(404).json("not logged in");
   }
 })
 
