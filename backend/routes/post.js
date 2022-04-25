@@ -68,6 +68,7 @@ router.post("/create", async (req, res) => {
 // get a post
 router.get("/:id", async (req, res) => {
     try {
+        console.log("get post");
         const { id } = req.params;
         console.log(id);
         const post = await prisma.post.findUnique({
@@ -75,6 +76,17 @@ router.get("/:id", async (req, res) => {
                 id: id
             }
         });
+        post["author"] = await prisma.user.findUnique({
+            where: {
+                auth0Id: post.authorId,
+            },
+            select: {
+                auth0Id: true,
+                email: true,
+                username: true,
+                picture: true,
+            }
+        })
         res.status(200).json(post);
     } catch (err) {
         console.log(err);
@@ -197,6 +209,7 @@ router.put("/:id/unlike", async (req, res) => {
 // Get all post ids from a user
 router.get("/from/:username", async (req, res) => {
     try {
+        console.log("from user");
         const { username } = req.params;
 
         const posts = await prisma.user.findUnique({
@@ -217,6 +230,7 @@ router.get("/from/:username", async (req, res) => {
 // create a comment for post
 router.post("/:id/comment", async (req, res) => {
     try {
+        console.log("commenting");
         const { id } = req.params;
         const auth0Id = req.oidc.user.sub;
         const { content } = req.body;
@@ -247,6 +261,19 @@ router.post("/:id/comment", async (req, res) => {
                 comments: comments,
             }
         })
+
+        comment["author"] = await prisma.user.findUnique({
+            where: {
+                auth0Id: comment.authorId,
+            },
+            select: {
+                auth0Id: true,
+                email: true,
+                username: true,
+                picture: true,
+            }
+        })
+        res.status(200).json(comment);
 
         res.status(200).json(comment);
     } catch (err) {
