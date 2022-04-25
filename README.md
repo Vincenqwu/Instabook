@@ -67,3 +67,10 @@ Your application should have at least one unit test per page.
 
 # Database requirements
 Your application should include at least 3 tables in the database.  
+
+## TODO
+
+### backend
+
+- [ ] include all comments in returned post json
+- [ ] upload image api endpoint
