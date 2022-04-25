@@ -12,6 +12,7 @@ const config = {
   issuerBaseURL: process.env.AUTH0_ISSUER,
   routes: {
     login: false,
+    logout: false,
   }
 };
 
@@ -24,8 +25,12 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login', (req, res) => res.oidc.login({ 
-    returnTo: `${process.env.CLIENT_BASE_URL}/verify-user`
+    returnTo: `${process.env.CLIENT_BASE_URL}`
 }));
+
+router.get('/logout', (req, res) => res.oidc.logout({
+    returnTo: `${process.env.CLIENT_BASE_URL}`
+}))
 
 // if user is logged in, return its user information and json else 
 router.get("/verify", async (req, res) => {
