@@ -70,12 +70,12 @@ router.get("/:id", async (req, res) => {
     try {
         console.log("get post");
         const { id } = req.params;
-        console.log(id);
         const post = await prisma.post.findUnique({
             where: {
                 id: id
             }
         });
+        // add user info to post json
         post["author"] = await prisma.user.findUnique({
             where: {
                 auth0Id: post.authorId,
@@ -87,6 +87,19 @@ router.get("/:id", async (req, res) => {
                 picture: true,
             }
         })
+        // add all comments to post json
+        let comments = [];
+        for(let i = 0; i < post.comments.length; i++) {
+            let comment = await prisma.comment.findUnique({
+                where: {
+                    id: post.comments[i]
+                }
+            });
+            console.log(comment);
+            comments.push(comment);
+        }
+        post.comments = comments;
+
         res.status(200).json(post);
     } catch (err) {
         console.log(err);
