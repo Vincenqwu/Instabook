@@ -1,13 +1,7 @@
 const router = require("express").Router();
 const {PrismaClient} = require("@prisma/client")
 const prisma = new PrismaClient();
-const { auth } = require('express-openid-connect');
-const cors = require("cors");
-
-const corsOptions = {
-  origin: "http://localhost:3000",
-  credentials: true
-}
+const { auth, requiresAuth } = require('express-openid-connect');
 
 const config = {
   authRequired: false,
@@ -22,7 +16,6 @@ const config = {
 };
 
 router.use(auth(config));
-// router.use(jwtCheck);
 
 // test if user is logged in or not
 router.get('/', (req, res) => {
@@ -35,7 +28,7 @@ router.get('/login', (req, res) => res.oidc.login({
 }));
 
 // if user is logged in, return its user information and json else 
-router.get("/verify", cors(corsOptions), async (req, res) => {
+router.get("/verify", async (req, res) => {
   try {
     console.log("verify");
     const auth0Id = req.oidc.user.sub;
@@ -69,11 +62,5 @@ router.get("/verify", cors(corsOptions), async (req, res) => {
     res.status(404).json("not logged in");
   }
 })
-
-// router.post('/callback', (req, res) => {
-//     console.log("callback");
-//     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
-//     res.send("Hello");
-// })
 
 module.exports = router;

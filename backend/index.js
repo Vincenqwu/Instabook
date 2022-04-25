@@ -13,18 +13,20 @@ const profileRoute = require("./routes/profile");
 const authRoute = require("./routes/auth");
 const commentRoute = require("./routes/comment");
 
-app.use(express.json());
+const corsOptions = {
+  origin: process.env.CLIENT_BASE_URL,
+  credentials: true
+}
 
+app.use(express.json());
+app.use(cors(corsOptions));
+
+// app.use("/", cors(corsOptions), authRoute);
 app.use("/", authRoute);
 app.use("/post/", postRoute);
 app.use("/user/", userRoute);
 app.use("/profile/", profileRoute);
 app.use("/comment/", commentRoute);
-
-app.get("/test", async (req, res) => {
-    console.log("test");
-    res.status(200).json("test"); 
-})
 
 // https
 //     .createServer(

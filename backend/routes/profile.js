@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 const { requiresAuth } = require('express-openid-connect');
 
 // get account information
-router.get("/", requiresAuth(), async (req, res) => {
+router.get("/", async (req, res) => {
     console.log("/profile");
     console.log(req);
     try {
