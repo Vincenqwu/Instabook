@@ -14,7 +14,6 @@ const authRoute = require("./routes/auth");
 const commentRoute = require("./routes/comment");
 
 app.use(express.json());
-app.use(cors());
 
 app.use("/", authRoute);
 app.use("/post/", postRoute);

@@ -22,7 +22,6 @@ const config = {
 };
 
 router.use(auth(config));
-router.use(express.json());
 // router.use(jwtCheck);
 
 // test if user is logged in or not
