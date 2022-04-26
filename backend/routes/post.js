@@ -40,11 +40,18 @@ router.post("/create", async (req, res) => {
         console.log("create");
         const auth0Id = req.oidc.user.sub;
         const content = req.body.content;
+        const image = req.body.image;
+
+        const data = {
+            content: content,
+            authorId: auth0Id,
+        }
+        if (image) {
+            data["image"] = `${process.env.SERVER_URL}/${process.env.PUBLIC_PATH}/${image}`;
+            console.log(data.image);
+        }
         const newPost = await prisma.post.create({
-            data: {
-                content: content,
-                authorId: auth0Id,
-            }
+            data: data
         });
 
         const user = await prisma.user.update({

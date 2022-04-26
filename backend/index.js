@@ -22,6 +22,7 @@ const corsOptions = {
 
 app.use(express.json());
 app.use(cors(corsOptions));
+app.use("/public", express.static("public"));
 
 // app.use("/", cors(corsOptions), authRoute);
 app.use("/", authRoute);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useRef } from 'react';
 import ImageIcon from '@mui/icons-material/Image';
-import useUserAuth from '../hooks/useUserAuth'
+import useUserAuth from '../hooks/useUserAuth';
 
 
 import "../style/share.css"
@@ -12,23 +12,31 @@ export default function Share() {
 
   const shareHandler = async (e) => {
     e.preventDefault();
-    console.log(inputRef.current.value);
     const newPost = {
       content: inputRef.current.value,
     };
     console.log(newPost);
-    // if (file) {
-    //   const data = new FormData();
-    //   const fileName = Date.now() + file.name;
-    //   data.append("name", fileName);
-    //   data.append("file", file);
-    //   newPost.image = fileName;
-    //   console.log(newPost);
-    //   try {
-    //     await axios.post("/upload", data);
-    //   } catch (err) {}
-    // }
+    if (file) {
+      const data = new FormData();
+      const fileName = Date.now() + file.name;
+      data.append("name", fileName);
+      data.append("file", file);
+      newPost.image = fileName;
+      try {
+        await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
+          method: "POST",
+          credentials: 'include',
+          body: data
+        })
+        console.log(newPost);
+      } catch (err) {console.log(err);}
+    }
     try {
+        await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
+          method: "POST",
+          credentials: 'include',
+        })
+
         const data = await fetch(`${process.env.REACT_APP_API_URL}/post/create`, {
           method: "POST",
           credentials: 'include',
