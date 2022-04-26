@@ -12,26 +12,28 @@ export default function Share() {
 
   const shareHandler = async (e) => {
     e.preventDefault();
-    const newPost = {
-      content: inputRef.current.value,
-    };
-    console.log(newPost);
-    if (file) {
-      const data = new FormData();
-      const fileName = Date.now() + file.name;
-      data.append("name", fileName);
-      data.append("file", file);
-      newPost.image = fileName;
+    if (inputRef.current.value) {
+      console.log(inputRef.current.value);
+      const newPost = {
+        content: inputRef.current.value,
+      };
+      console.log(newPost);
+      if (file) {
+        const data = new FormData();
+        const fileName = Date.now() + file.name;
+        data.append("name", fileName);
+        data.append("file", file);
+        newPost.image = fileName;
+        try {
+          await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
+            method: "POST",
+            credentials: 'include',
+            body: data
+          })
+          console.log(newPost);
+        } catch (err) { console.log(err); }
+      }
       try {
-        await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
-          method: "POST",
-          credentials: 'include',
-          body: data
-        })
-        console.log(newPost);
-      } catch (err) {console.log(err);}
-    }
-    try {
         await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
           method: "POST",
           credentials: 'include',
@@ -48,8 +50,12 @@ export default function Share() {
         const res = await data.json();
         console.log('Success', res);
         window.location.reload();
-    } catch (err) {
-      console.log('Error', err);
+      } catch (err) {
+        console.log('Error', err);
+      }
+    }
+    else {
+      alert('Content cannot be empty')
     }
   };
 
@@ -60,9 +66,9 @@ export default function Share() {
         <div className="shareTop">
           <img className="shareProfileImg" src={authInfo.picture} alt="" />
           <input
-            placeholder= {"What's in your mind? " + authInfo.username}
+            placeholder={"What's in your mind? " + authInfo.username}
             className="shareInput"
-            ref = {inputRef}
+            ref={inputRef}
           />
         </div>
         <hr className="shareHr" />
@@ -76,22 +82,22 @@ export default function Share() {
           </div>
         )}
         <form className="shareBottom" onSubmit={shareHandler}>
-           <label htmlFor="file" className="shareOption">
+          <label htmlFor="file" className="shareOption">
             <ImageIcon htmlColor="tomato" className="shareIcon" />
             <span className="shareOptionText">Add A Image</span>
             <input
-                style={{ display: "none" }}
-                type="file"
-                id="file"
-                accept=".png,.jpeg,.jpg"
-                onChange={(e) => setFile(e.target.files[0])}
-              />
-              </label>
-              <button className="shareButton" type="submit">Share</button>
-          </form>
-          
-        </div>
+              style={{ display: "none" }}
+              type="file"
+              id="file"
+              accept=".png,.jpeg,.jpg"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+          </label>
+          <button className="shareButton" type="submit">Share</button>
+        </form>
 
       </div>
+
+    </div>
   )
 }
