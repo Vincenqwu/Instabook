@@ -60,6 +60,8 @@ export const Posts = [
     userId: 1,
     like: 32,
     comment: 9,
+    username: "qwu",
+    userPicture: ""
   },
   {
     id: 2,
@@ -68,6 +70,8 @@ export const Posts = [
     userId: 2,
     like: 2,
     comment: 1,
+    username: "qwu",
+    userPicture: ""
   },
   {
     id: 3,
@@ -77,6 +81,22 @@ export const Posts = [
     userId: 3,
     like: 61,
     comment: 2,
+    username: "qwu",
+    userPicture: ""
   },
  
 ];
+
+export const Comments = [
+  {
+    id: 1, 
+    content: "i like it",
+    username: "qwu"
+  },
+
+  {
+    id: 2, 
+    content: "i hate it",
+    username: "1573"
+  }
+]

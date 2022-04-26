@@ -7,7 +7,7 @@
 }
 
 .postWrapper {
-  padding: 10px;
+  padding: 20px;
 }
 
 .postTop {
@@ -79,6 +79,7 @@
 }
 
 .postComment {
+  list-style: none;
   margin-bottom: 5px;
 }
 

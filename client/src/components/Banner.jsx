@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
+import useUserAuth from '../hooks/useUserAuth'
+
 import "../style/banner.css";
 
-export default function Banner({isLoggedIn, authInfo}) {
+export default function Banner() {
 
+  const [ authInfo, isLoggedIn ] = useUserAuth();
   return (
     <div className="bannerContainer">
       <div className="bannerLeft">

@@ -14,7 +14,6 @@ export default function useUserAuth() {
           method: "GET",
           credentials: 'include',
         });
-        console.log(response)
         if (response.status === 200 || response.status === 304) {
           const user = await response.json();
           setIsLoggedIn(true);
@@ -28,10 +27,10 @@ export default function useUserAuth() {
         console.log(err);
       }
     }
-    
-   
+    console.log(isLoggedIn, authInfo);
     getAuthInfoFromApi();
   }, []);
 
-  return [ authInfo, setAuthInfo, isLoggedIn, setIsLoggedIn ]
+
+  return [ authInfo, isLoggedIn ]
 }

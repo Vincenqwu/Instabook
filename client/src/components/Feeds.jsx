@@ -1,35 +1,50 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Post from "./Post";
 import Share from "./Share";
-import { useAuth0 } from "@auth0/auth0-react";
+import useUserAuth from '../hooks/useUserAuth'
 import "../style/feeds.css"
-import { Posts } from "../dummyData";
 
 
 export default function Feeds({ username }) {
-  const { user, isAuthenticated } = useAuth0();
+  //const { currUser } = useUser();
   const [posts, setPosts] = useState([]);
+  const [ authInfo, isLoggedIn ] = useUserAuth();
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     const res = username
-  //       ? await axios.get("/posts/profile/" + username)
-  //       : await axios.get("posts/timeline/" + user._id);
-  //     setPosts(
-  //       res.data.sort((p1, p2) => {
-  //         return new Date(p2.createdAt) - new Date(p1.createdAt);
-  //       })
-  //     );
-  //   };
-  //   fetchPosts();
-  // }, [username, user._id]);
+  useEffect(() => {
+    const fetchPosts = async () => {
+
+      if (username !== null) {
+        const data = await fetch(`${process.env.REACT_APP_API_URL}/post/from/${username}`, {
+          credentials: 'include'
+        });
+        const res = await data.json();
+        console.log('Success', res);
+        setPosts(res.reverse());
+      }
+
+      else {
+        const data = await fetch(`${process.env.REACT_APP_API_URL}/post/feed`, {
+          credentials: 'include'
+        });
+        const res = await data.json();
+        console.log('Success', res);
+        setPosts(res.reverse());
+      }      
+    };
+    fetchPosts();
+  }, [username]);
+
+
+  useEffect(() => {
+    console.log(posts)
+  }, [posts]);
 
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <Share />
-        {Posts.map((p) => (
-          <Post key={p.id} post={p} />
+        {isLoggedIn && <Share/>}
+        {posts.map((id) => (
+          <Post postID={id} />
         ))}
       </div>
     </div>

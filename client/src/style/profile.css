@@ -17,24 +17,71 @@
   padding:10px;
 }
 
+.profile-header {
+  display: flex;
+  align-items: center;
+}
 
 .profileUserImg{
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
   left: 0;
   right: 0;
-  margin: auto;
   top: 150px;
   border: 3px solid white;
 }
 
+
+.profile-info { 
+  width: 80%;
+  margin-left: 4em
+}
 .profileInfoName{
   font-size: 24px;
+  margin-left: 0.5em;
 }
 
 .profileEditForm {
   display: flex;
   flex-direction: column;
+}
+
+.profileFollowButton {
+  border-radius: 24px;
+  border: none;
+  padding: 6px;
+  background-color: green;
+  cursor: pointer;
+  color: white;
+  margin-left: 4em;
+  
+}
+
+.profileEditButton {
+  border-radius: 12px;
+  border: none;
+  padding: 6px;
+  background-color: green;
+  cursor: pointer;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  width: 50px;
+}
+
+.profileEditButton2 {
+  width: 50px;
+  font-size: 12px;
+  border-radius: 12px;
+  border: none;
+  padding: 6px;
+  background-color: green;
+  cursor: pointer;
+  color: white;
+  margin-top: 8px;
+}
+.formWrapper {
+  width: 8%
 }

@@ -1,47 +1,107 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
-import { useAuth0 } from "@auth0/auth0-react";
-import JSONPretty from 'react-json-pretty'
-import TopBar from '../components/Banner';
+import Banner from '../components/Banner';
 import Leftbar from '../components/Leftbar';
 import Feeds from '../components/Feeds';
 import { useParams } from "react-router";
+import useUserAuth from '../hooks/useUserAuth'
+
 import '../style/profile.css';
 
 export default function Profile() {
-  //const { user, isAuthenticated } = useAuth0();
+  const [authInfo, isLoggedIn] = useUserAuth();
+  const [currUser, setCurrUser] = useState();
   const username = useParams().username;
-  const [user, setUser] = useState({});
   const [viewForm, setViewForm] = useState(false);
+  const [followed, setFollowed] = useState(false);
 
-  const [followed, setFollowed] = useState(
-    false
-  );
-
-
+  // Fetch the user's data by username endpoint
+  // If current user's profile, set the user as currUser
   useEffect(() => {
     async function getUserInfo() {
-      const data = await fetch(`${process.env.REACT_APP_API_URL}/users/${username}`, {
-        method: "GET",
-      });
-      const res = await data.json();
-      setUser(res);
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/user/${username}`, {
+          credentials: 'include'
+        });
+        const res = await response.json();
+        setCurrUser(res);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    // Check if profile endpoint is logged in user
+    if (isLoggedIn && username == authInfo.username) {
+      setCurrUser(authInfo);
     }
 
-    getUserInfo();
-  }, [username]);
+    else {
+      getUserInfo();
+    }
+  }, []);
 
+  useEffect(() => {
+    if (isLoggedIn && currUser) {
+      setFollowed(authInfo.following.includes(currUser.auth0Id));
+    }
+  }, [currUser]);
 
+  // Follow or unfollow a current user by myself
   const handleFollow = async () => {
-    setFollowed(!followed);
+
+    try {
+      if (followed) {
+        await fetch(`${process.env.REACT_APP_API_URL}/user/${currUser.username}/unfollow`, {
+          method: 'PUT',
+          credentials: 'include',
+        });
+      }
+      else {
+        await fetch(`${process.env.REACT_APP_API_URL}/user/${currUser.username}/follow`, {
+          method: 'PUT',
+          credentials: 'include',
+        });
+
+      }
+      setFollowed(!followed);
+    }
+    catch (err) {
+      console.error(err)
+    }
   };
 
 
+  // // Edit profile
   const EditForm = () => {
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
       event.preventDefault();
-      console.log(event.target[4].value)
+
+      const firstname = event.target.firstname.value;
+      const lastname = event.target.lastname.value;
+      const gender = event.target.gender.value;
+      console.log(firstname, lastname, gender);
+
+      const userInfo = {
+        firstName: firstname,
+        lastName: lastname,
+        gender: gender,
+      }
+
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/profile/`, {
+          method: "PUT",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body: JSON.stringify(userInfo)
+        });
+        const updatedUser = await response.json();
+        setCurrUser(updatedUser);
+        console.log('Success', updatedUser);
+      }
+      catch (err) {
+        console.error("Error:", err);
+      }
     }
 
     return (
@@ -52,29 +112,19 @@ export default function Profile() {
         <label>Last Name:
           <input type="text" name="lastname" />
         </label>
-        <label>Email:
-          <input type="email" name="email" />
+        <label>Gender
+          <input type="text" name="gender" />
         </label>
-        <label>Description:
-          <input type="text" name="description" />
-        </label>
-        <label>Address Street:
-          <input type="text" name="street" />
-        </label>
-        <label>Address City:
-          <input type="text" name="city" />
-        </label>
-        <label>Address Country:
-          <input type="text" name="country" />
-        </label>
-        <button type="submit"> Submit</button>
-        <button type="button" onClick={() => setViewForm(false)}> Cancel </button>
+        <button className="profileEditButton2" type="submit"> Submit</button>
+        <button className="profileEditButton2" type="button" onClick={() => setViewForm(false)}> Cancel </button>
       </form>
     )
   }
+
   return (
-    <>
-      <TopBar />
+    currUser &&
+    (<>
+      <Banner />
       <div className="profile-container">
         <Leftbar />
         <div className="profile-info">
@@ -82,54 +132,56 @@ export default function Profile() {
           <div className="profile-header">
             <img
               className="profileUserImg"
-              src={process.env.PUBLIC_URL + "/images/noAvatar.png"}
+              src={currUser?.picture}
               alt=""
             />
-            <h4 className="profileInfoName">Vincent Wu</h4>
-            <h3 className="profileInfoDesc">Yo, what's up?</h3>
-            {user.username !== username && (
+
+            <h4 className="profileInfoName">{currUser?.username}</h4>
+
+            {isLoggedIn && authInfo.username !== username && (
               <button className="profileFollowButton" onClick={handleFollow}>
                 {followed ? "Unfollow" : "Follow"}
               </button>
             )}
+
           </div>
           <div className="profile-details-wrapper">
             <div className="prifile-details">
               <h4 className="detailsTitle">User information</h4>
-              <button className="profileEditButton" onClick={() => setViewForm(true)}>Edit</button>
               <div className="detailsInfo">
                 <div className="detailsInfoItem">
-                  <span className="detailsInfoKey">Username:</span>
-                  <span className="detailsInfoValue">Vincenqwu</span>
+                  <span className="detailsInfoKey">First Name:</span>
+                  <span className="detailsInfoValue">{currUser?.firstName}</span>
                 </div>
                 <div className="detailsInfoItem">
-                  <span className="detailsInfoKey">City:</span>
-                  <span className="detailsInfoValue">New York</span>
+                  <span className="detailsInfoKey">Last Name:</span>
+                  <span className="detailsInfoValue">{currUser?.lastName}</span>
                 </div>
                 <div className="detailsInfoItem">
                   <span className="detailsInfoKey">Gender:</span>
-                  <span className="detailsInfoValue">Male</span>
+                  <span className="detailsInfoValue">{currUser?.gender}</span>
                 </div>
                 <div className="detailsInfoItem">
                   <span className="detailsInfoKey">Email:</span>
-                  <span className="detailsInfoValue">v@gmail.com</span>
+                  <span className="detailsInfoValue">{currUser?.email}</span>
                 </div>
               </div>
+              {isLoggedIn && authInfo.username === username && (
+                <button className="profileEditButton" onClick={() => setViewForm(true)}>Edit</button>
+              )}
               <div className="formWrapper">
                 {viewForm ?
                   <EditForm /> : ''}
               </div>
             </div>
           </div>
-          {/* <img src={user.picture} alt={user.name} />
-            <h2>{user.name}</h2>
-            <p> {user.email}</p>
-            <JSONPretty data={user} /> */}
           <div className="profile-feed">
-            <Feeds username={username} />
+            <Feeds
+              username={username}
+            />
           </div>
         </div>
       </div>
-    </>
+    </>)
   );
 }
