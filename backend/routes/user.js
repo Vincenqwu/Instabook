@@ -21,6 +21,23 @@ router.get("/:username", async (req, res) => {
     }
 })
 
+// get a user's information
+router.get("/id/:id", async (req, res) => {
+    console.log("/user/id")
+    try {
+        const { id } = req.params;
+        const user = await prisma.user.findUnique({
+            where: {
+                auth0Id: id,
+            },
+        });
+        res.status(200).json(user);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+})
+
 // follow a user
 router.put("/:username/follow", async (req, res) => {
     try {
