@@ -18,26 +18,25 @@ export default function Share() {
         content: inputRef.current.value,
       };
       console.log(newPost);
-      if (file) {
-        const data = new FormData();
-        const fileName = Date.now() + file.name;
-        data.append("name", fileName);
-        data.append("file", file);
-        newPost.image = fileName;
-        try {
+      try {
+        if (file) {
+          const data = new FormData();
+          let fileName = Date.now() + file.name;
+          fileName = fileName.replace(/\s/g, '_');
+          data.append("name", fileName);
+          data.append("file", file);
+          newPost.image = fileName;
           await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
             method: "POST",
             credentials: 'include',
             body: data
-          })
+          }).then((res) => {
+            if (res.status !== 200) {
+              throw new Error("image format not correct");
+            }
+          });
           console.log(newPost);
-        } catch (err) { console.log(err); }
-      }
-      try {
-        await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
-          method: "POST",
-          credentials: 'include',
-        })
+        }
 
         const data = await fetch(`${process.env.REACT_APP_API_URL}/post/create`, {
           method: "POST",
