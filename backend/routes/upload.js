@@ -13,21 +13,22 @@ const storage = multer.diskStorage({
     filename: function(req, file, cb) {
         cb(null, req.body.name);
     },
-    fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) { 
-           return cb(new Error('Please upload a Image'))
-         }
-        cb(undefined, true);
-    }
 });
 
-const upload = multer({storage: storage});
+const upload = multer({
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+        if (req.body.name.match(/\.(png|jpg|jpeg)$/) === null) { 
+           return cb(new Error('Please upload a Image'))
+        }
+        cb(null, true);
+    }
+});
 
 // upload an image to server
 router.post("/", upload.single("file"), async (req, res) => {
     try {
         console.log("uploading");
-        console.log(req.body);
         res.status(200).json("uploaded");
     } catch (err) {
         console.log(err);
