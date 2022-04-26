@@ -1,41 +1,89 @@
 import React from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 import ImageIcon from '@mui/icons-material/Image';
+import useUserAuth from '../hooks/useUserAuth'
+
+
 import "../style/share.css"
 export default function Share() {
-  const { isAuthenticated, user } = useAuth0();
   const inputRef = useRef();
-  console.log(user);
+  const [file, setFile] = useState(null);
+  const [authInfo] = useUserAuth();
 
-  const handlePostSubmit = async (e) => {
+  const shareHandler = async (e) => {
     e.preventDefault();
     console.log(inputRef.current.value);
-    console.log(user.name);
+    const newPost = {
+      content: inputRef.current.value,
+    };
+    console.log(newPost);
+    // if (file) {
+    //   const data = new FormData();
+    //   const fileName = Date.now() + file.name;
+    //   data.append("name", fileName);
+    //   data.append("file", file);
+    //   newPost.image = fileName;
+    //   console.log(newPost);
+    //   try {
+    //     await axios.post("/upload", data);
+    //   } catch (err) {}
+    // }
+    try {
+        const data = await fetch(`${process.env.REACT_APP_API_URL}/post/create`, {
+          method: "POST",
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newPost),
+        });
+        const res = await data.json();
+        console.log('Success', res);
+        window.location.reload();
+    } catch (err) {
+      console.log('Error', err);
+    }
+  };
 
-    // Add post request
-  }
 
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img className="shareProfileImg" src={process.env.PUBLIC_URL + "/images/noAvatar.png"} alt="" />
+          <img className="shareProfileImg" src={authInfo.picture} alt="" />
           <input
-            placeholder="What's in your mind Vincent?"
+            placeholder= {"What's in your mind? " + authInfo.username}
             className="shareInput"
+            ref = {inputRef}
           />
         </div>
         <hr className="shareHr" />
-        <div className="shareBottom">
-          <div className="shareOption">
+        {file && (
+          <div className="shareImgContainer">
+            <img className="shareImg" src={URL.createObjectURL(file)} alt="" />
+            <button className="cancelImgButton" onClick={() => {
+              setFile(null);
+              document.querySelector('form').reset();
+            }}>X</button>
+          </div>
+        )}
+        <form className="shareBottom" onSubmit={shareHandler}>
+           <label htmlFor="file" className="shareOption">
             <ImageIcon htmlColor="tomato" className="shareIcon" />
             <span className="shareOptionText">Add A Image</span>
-          </div>
-          <button className="shareButton">Share</button>
+            <input
+                style={{ display: "none" }}
+                type="file"
+                id="file"
+                accept=".png,.jpeg,.jpg"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+              </label>
+              <button className="shareButton" type="submit">Share</button>
+          </form>
+          
         </div>
 
       </div>
-    </div>
   )
 }
