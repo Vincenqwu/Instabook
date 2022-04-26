@@ -1,8 +1,7 @@
-//import { Users } from "../dummyData";
 import { useState, useEffect } from "react";
-import { Posts, Comments } from "../dummyData"
 import { Link } from "react-router-dom"
 import useUserAuth from '../hooks/useUserAuth'
+import Comment from "./Comment"
 
 import "../style/post.css"
 
@@ -12,9 +11,36 @@ export default function Post({ postID }) {
   const [commentInput, setCommentInput] = useState(false)
 
   const [post, setPost] = useState();
-  const [comments, setComments] = useState();
+  //const [comments, setComments] = useState();
   const [authInfo, isLoggedIn] = useUserAuth();
   const [postAuthor, setPostAuthor] = useState();
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/post/${postID}`, {
+        credentials: 'include'
+      });
+      const postData = await response.json();
+      setLikes(postData.likedBy.length);
+      setPost(postData);
+    }
+    fetchPost();
+
+  }, [postID])
+
+  useEffect(() => {
+    const fetchPostAuthor = async () => {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/user/id/${post.authorId}`, {
+        credentials: 'include'
+      });
+      const res = await response.json();
+      setPostAuthor(res);
+    }
+    if (post) {
+      console.log(post.comments);
+      fetchPostAuthor();
+    }
+  }, [post])
 
 
   const likeHandler = async () => {
@@ -42,20 +68,31 @@ export default function Post({ postID }) {
     const [inputValue, setInputValue] = useState("");
 
     const postComment = async (event) => {
-      console.log(inputValue);
-      event.preventDefault();
-      const newComment = {
-        content: inputValue
+      if (inputValue) {
+        console.log(inputValue);
+        event.preventDefault();
+        const newComment = {
+          content: inputValue
+        }
+        try {
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/post/${postID}/comment`, {
+            method: "POST",
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newComment)
+          });
+          const res = await res.json();
+          console.log('Success', res);
+          resetInputField();
+          window.location.reload();
+        }
+        catch (err) {
+          console.error(err);
+        }
+        
       }
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/post/comment`, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newComment)
-      });
-
-      resetInputField();
     }
 
 
@@ -82,21 +119,6 @@ export default function Post({ postID }) {
     )
   }
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/post/${postID}`, {
-        credentials: 'include'
-      });
-      const postData = await res.json();
-      setLikes(postData.likedBy.length);
-      setPost(postData);
-    }
-    fetchPost();
-    setPost(Posts[0])
-
-
-  }, [postID])
-
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -106,65 +128,47 @@ export default function Post({ postID }) {
   }, [post]);
 
 
-  useEffect(() => {
-    const fetchPostComment = async () => {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/post/${postID}/comment`, {
-        credentials: 'include'
-      });
-      const data = await res.json();
-      setComments(data);
-    }
-
-    setComments(Comments);
-  }, [postID])
-
-
-
-
   return (
-    post &&
+    post && postAuthor &&
     <div className="post">
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`/profile/${post.username}`}>
+            <Link to={`/profile/${postAuthor.username}`}>
               <img
                 className="postProfileImg"
-                src={post.picture}
+                src={postAuthor.picture}
                 alt=""
               />
             </Link>
             <span className="postUsername">
-              {post.username}
+              {postAuthor.username}
             </span>
-            <span className="postDate">{post.createdAt}</span>
+            <span className="postDate">{post.createAt}</span>
           </div>
         </div>
         <div className="postCenter">
-          <span className="postText">{post?.content}</span>
-          <img className="postImg" src={process.env.PUBLIC_URL + post.photo} alt="" />
+          <span className="postText">{post.content}</span>
+          {
+            post.image &&
+            <img className="postImg" src={post.image} alt="" />
+          }
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
             <img className="likeIcon" src={process.env.PUBLIC_URL + "/images/heart.png"} onClick={likeHandler} alt="" />
-            <span className="postLikeCounter">{likes}</span>
+            <span className="postLikeCounter">{likes} people like it</span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText">{post.comment} comments</span>
+            <span className="postCommentText">{post.comments.length} comments</span>
           </div>
         </div>
         <div className="postComments">
           {isLoggedIn && <button className="postAddCommentButton" onClick={() => setCommentInput(!commentInput)}>+ Add Comment</button>}
           {commentInput ? <AddPostComment /> : ""}
-
-          {Comments.map((comment) => {
-            return (
-              <div className="postComment">
-                <span className="commentUser">{comment.username}: </span>
-                <span className="commentContent">{comment.content}</span>
-              </div>
-            );
-          })}
+          {post.comments.map((comment) => (
+            <Comment comment={comment}/>
+          ))}
         </div>
       </div>
     </div>
