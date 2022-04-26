@@ -27,8 +27,8 @@ export default function useUserAuth() {
         console.log(err);
       }
     }
-    console.log(isLoggedIn, authInfo);
     getAuthInfoFromApi();
+    //console.log(isLoggedIn, authInfo);
   }, []);
 
 
