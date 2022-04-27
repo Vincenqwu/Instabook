@@ -3,7 +3,7 @@ import Leftbar from "../components/Leftbar";
 import Feeds from "../components/Feeds";
 // import { useAuthToken } from "../AuthTokenContext"
 import React from "react";
-
+import "../style/page.css" 
 import "../style/home.css"
 
 export default function Home() {

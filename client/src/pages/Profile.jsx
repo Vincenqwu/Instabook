@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import useUserAuth from '../hooks/useUserAuth'
 
 import '../style/profile.css';
+import "../style/page.css" 
 
 export default function Profile() {
   const [authInfo, isLoggedIn] = useUserAuth();
