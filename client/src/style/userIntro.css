@@ -1,0 +1,47 @@
+.UserIntroWrapper {
+    display: flex;
+    margin: 20px 0;
+    align-items: center;
+  }
+  
+  .userIntroLeft {
+    display: flex;
+    flex: 5;
+    align-items: center;
+  }
+  
+  .userImg {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    cursor: pointer;
+  }
+  
+  .userName {
+    font-size: 20px;
+    font: bold;
+    cursor: pointer;
+  }
+  
+  .followButton {
+    width: 100px;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: #15a3bd;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .userIntroRight {
+    flex: 1;
+  }
+  
+  .UserIntroHr {
+    margin: 20px 0;
+  }
+  

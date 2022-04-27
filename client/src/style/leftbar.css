@@ -1,0 +1,32 @@
+.leftbar {
+  flex: 0.3;
+  height: calc(100vh-50px);
+  position: sticky;
+  top: 50px;
+}
+
+.leftbarWrapper {
+  padding: 20px;
+}
+
+.leftbarList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.leftbarListItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.leftbarListItemText{
+  font-size: large;
+  /* font-weight: bold; */
+}
+
+.leftbarIcon {
+  margin-right: 15px;
+}

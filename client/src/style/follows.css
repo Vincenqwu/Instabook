@@ -1,0 +1,9 @@
+.followsContainer {
+  display: flex;
+  width: 100%;
+}
+
+.followsWrapper {
+  flex: 1;
+}
+  
