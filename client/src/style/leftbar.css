@@ -1,8 +1,10 @@
 .leftbar {
-  flex: 0.3;
-  height: calc(100vh-50px);
+  height: calc(100vh - 60px);
+  top: 60px;
+  width: 200px;
+  left:0;
+  overflow-y: scroll;
   position: sticky;
-  top: 50px;
 }
 
 .leftbarWrapper {

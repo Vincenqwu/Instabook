@@ -35,10 +35,9 @@ export default function Follows({forFollower}) {
             <Leftbar/>
             <div className="followsWrapper">
                 <h2>All {forFollower ? "Followers" : "Followings"}</h2>
-                {/* {isLoggedIn ? "123" : "456"} */}
                 {(isLoggedIn===true && username) ?
                 follows.map((f) => (
-                    <UserIntro key={f} followName={f} authInfo={authInfo}/>
+                    <UserIntro key={f} followId={f} authInfo={authInfo}/>
                 )) : <p>You did not logged in yet, you can log in to check following/followers :)</p>}
             </div>
         </div>
