@@ -2,4 +2,9 @@
 .homeContainer{
   display: flex;
   width: 90%;
+  z-index: 1;
+}
+
+.homeFeedInfo { 
+  width: 90%;
 }

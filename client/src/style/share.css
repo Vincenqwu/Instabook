@@ -44,10 +44,12 @@
 
 .shareOption{
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .shareOptionText{
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .shareButton{

@@ -1,16 +1,20 @@
 .profile-container {
   
   display:flex;
-
+  width: 90%
 }
 
-.prifile-details{
+.profile-details{
   height:fit-content;
   border-radius: 10px;
   -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   padding:10px
 
+}
+
+.detailsTitle {
+  margin-bottom:12px;
 }
 
 .profile-details-wrapper {
@@ -20,6 +24,10 @@
 .profile-header {
   display: flex;
   align-items: center;
+}
+
+.profile-title {
+  margin-bottom:12px
 }
 
 .profileUserImg{
@@ -35,9 +43,9 @@
 
 
 .profile-info { 
-  width: 80%;
-  margin-left: 4em
+  width: 90%;
 }
+
 .profileInfoName{
   font-size: 24px;
   margin-left: 0.5em;
@@ -57,6 +65,10 @@
   color: white;
   margin-left: 4em;
   
+}
+
+.profileFollowButton:hover {
+  background-color:red;
 }
 
 .profileEditButton {
