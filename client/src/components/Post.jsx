@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
 import useUserAuth from '../hooks/useUserAuth'
 import Comment from "./Comment"
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import "../style/post.css"
 
 export default function Post({ postID }) {
   const [likes, setLikes] = useState(0)
   const [isLiked, setIsLiked] = useState(false)
-  const [commentInput, setCommentInput] = useState(false)
+  const [comments, setComments] = useState([])
 
   const [post, setPost] = useState();
   //const [comments, setComments] = useState();
@@ -23,6 +24,7 @@ export default function Post({ postID }) {
       const postData = await response.json();
       setLikes(postData.likedBy.length);
       setPost(postData);
+      setComments(postData.comments.reverse());
     }
     fetchPost();
 
@@ -83,7 +85,7 @@ export default function Post({ postID }) {
             },
             body: JSON.stringify(newComment)
           });
-          const res = await res.json();
+          const res = await response.json();
           console.log('Success', res);
           resetInputField();
           window.location.reload();
@@ -91,10 +93,9 @@ export default function Post({ postID }) {
         catch (err) {
           console.error(err);
         }
-        
+
       }
     }
-
 
     // Input Field handler
     const handleUserInput = (e) => {
@@ -114,10 +115,30 @@ export default function Post({ postID }) {
           onChange={handleUserInput}
         />
         <hr />
-        <button className="sharePostButton" onClick={postComment}>+</button>
+        {/* <button className="sharePostButton" onClick={postComment}>+</button> */}
+        <AddCircleIcon className="sharePostButton" onClick={postComment} />
       </div>
     )
   }
+
+  const deletePost = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/post/${postID}`, {
+        method: "DELETE",
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const res = await response.json();
+      console.log('Deleted', res);
+      window.location.reload();
+    }
+    catch (err) {
+      console.error(err);
+    }
+  }
+
 
 
   useEffect(() => {
@@ -144,8 +165,18 @@ export default function Post({ postID }) {
             <span className="postUsername">
               {postAuthor.username}
             </span>
-            <span className="postDate">{post.createAt}</span>
+            {authInfo && authInfo.following && authInfo.following.includes(post.authorId) &&
+            <span className="postFollowing">
+              (following) 
+            </span>
+}
+            <span className="postDate"> {post.createAt.substring(0, 10)}</span>
           </div>
+          {isLoggedIn && postAuthor.username === authInfo.username &&
+            <div className="postTopRight">
+              <DeleteIcon onClick={() => deletePost()} />
+            </div>
+          }
         </div>
         <div className="postCenter">
           <span className="postText">{post.content}</span>
@@ -164,10 +195,10 @@ export default function Post({ postID }) {
           </div>
         </div>
         <div className="postComments">
-          {isLoggedIn && <button className="postAddCommentButton" onClick={() => setCommentInput(!commentInput)}>+ Add Comment</button>}
-          {commentInput ? <AddPostComment /> : ""}
-          {post.comments.map((comment) => (
-            <Comment comment={comment}/>
+          {/* {isLoggedIn && <button className="postAddCommentButton" onClick={() => setCommentInput(!commentInput)}>+ Add Comment</button>} */}
+          {isLoggedIn && <AddPostComment />}
+          {comments.map((comment) => (
+            <Comment comment={comment} />
           ))}
         </div>
       </div>

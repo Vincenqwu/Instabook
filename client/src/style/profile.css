@@ -82,6 +82,27 @@
   color: white;
   margin-top: 8px;
 }
+
+.profileEditButton3 {
+  width: 50px;
+  font-size: 12px;
+  border-radius: 12px;
+  border: none;
+  padding: 6px;
+  background-color: red;
+  cursor: pointer;
+  color: white;
+  margin-top: 8px;
+}
+
 .formWrapper {
   width: 8%
+}
+
+.detailsInfoItem {
+  margin-bottom:12px
+}
+
+.profileEditLabel {
+  margin-top: 12px;
 }

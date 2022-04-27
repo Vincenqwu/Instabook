@@ -65,7 +65,7 @@ export default function Share() {
         <div className="shareTop">
           <img className="shareProfileImg" src={authInfo.picture} alt="" />
           <input
-            placeholder={"What's in your mind? " + authInfo.username}
+            placeholder={"What's on your mind? " + authInfo.username}
             className="shareInput"
             ref={inputRef}
           />
@@ -83,7 +83,7 @@ export default function Share() {
         <form className="shareBottom" onSubmit={shareHandler}>
           <label htmlFor="file" className="shareOption">
             <ImageIcon htmlColor="tomato" className="shareIcon" />
-            <span className="shareOptionText">Add A Image</span>
+            <span className="shareOptionText">Add An Image</span>
             <input
               style={{ display: "none" }}
               type="file"

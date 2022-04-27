@@ -106,17 +106,17 @@ export default function Profile() {
 
     return (
       <form className="profileEditForm" onSubmit={handleSubmit}>
-        <label>First Name:
+        <label className = "profileEditLabel">First Name:
           <input type="text" name="firstname" />
         </label>
-        <label>Last Name:
+        <label className = "profileEditLabel">Last Name:
           <input type="text" name="lastname" />
         </label>
-        <label>Gender
+        <label className = "profileEditLabel">Gender
           <input type="text" name="gender" />
         </label>
         <button className="profileEditButton2" type="submit"> Submit</button>
-        <button className="profileEditButton2" type="button" onClick={() => setViewForm(false)}> Cancel </button>
+        <button className="profileEditButton3" type="button" onClick={() => setViewForm(false)}> Cancel </button>
       </form>
     )
   }
@@ -150,19 +150,19 @@ export default function Profile() {
               <h4 className="detailsTitle">User information</h4>
               <div className="detailsInfo">
                 <div className="detailsInfoItem">
-                  <span className="detailsInfoKey">First Name:</span>
+                  <span className="detailsInfoKey">First Name: &nbsp;</span>
                   <span className="detailsInfoValue">{currUser?.firstName}</span>
                 </div>
                 <div className="detailsInfoItem">
-                  <span className="detailsInfoKey">Last Name:</span>
+                  <span className="detailsInfoKey">Last Name: &nbsp;</span>
                   <span className="detailsInfoValue">{currUser?.lastName}</span>
                 </div>
                 <div className="detailsInfoItem">
-                  <span className="detailsInfoKey">Gender:</span>
+                  <span className="detailsInfoKey">Gender: &nbsp;</span>
                   <span className="detailsInfoValue">{currUser?.gender}</span>
                 </div>
                 <div className="detailsInfoItem">
-                  <span className="detailsInfoKey">Email:</span>
+                  <span className="detailsInfoKey">Email: &nbsp;</span>
                   <span className="detailsInfoValue">{currUser?.email}</span>
                 </div>
               </div>

@@ -35,14 +35,10 @@ export default function Feeds({ username }) {
   }, [username]);
 
 
-  useEffect(() => {
-    console.log(posts)
-  }, [posts]);
-
   return (
     <div className="feed">
       <div className="feedWrapper">
-        {isLoggedIn && !username && <Share/>}
+        {isLoggedIn && (!username || authInfo.username === username) && <Share/>}
         {posts.map((id) => (
           <Post postID={id} />
         ))}

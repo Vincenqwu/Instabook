@@ -17,7 +17,7 @@ export default function Comment({ comment }) {
   return (
     commentAuthor && 
     <div className="postComment">
-      <span className="commentUser">{commentAuthor.username}: </span>
+      <span className="commentUser">{commentAuthor.username}: &nbsp;</span>
       <span className="commentContent">{comment.content}</span>
     </div>
   )
