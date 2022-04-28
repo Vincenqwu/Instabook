@@ -2,11 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import useUserAuth from '../hooks/useUserAuth'
+import { useNavigate } from "react-router-dom";
 
 import "../style/banner.css";
 
 export default function Banner() {
 
+  let navigate = useNavigate();
+
+  console.log("banner");
   const [ authInfo, isLoggedIn ] = useUserAuth();
   return (
     <div className="bannerContainer">
@@ -16,14 +20,15 @@ export default function Banner() {
         </Link>
       </div>
       <div className="bannerMiddle">
-        <div className="searchbar" >
-          <SearchIcon className="searchIcon" onClick={() => console.log("here")} />
-          <input
-            placeholder="Search for a user by username"
-            className="searchInput"
-          />
-
-        </div>
+        <form className="searchbar" onSubmit={() => {
+          let name = document.getElementsByClassName("searchInput")[0].value;
+            navigate(`/search/${name}`);
+          }}>
+          <button type="submit" className="searchButton">
+            <SearchIcon className="searchIcon" onClick={() => console.log("here")} />
+          </button>
+          <input type="text" required placeholder="Search for a user by username" className="searchInput" />
+        </form>
       </div>
       <div className="bannerRight">
         <div className="bannerLoginLogout">
