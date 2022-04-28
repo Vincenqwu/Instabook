@@ -87,6 +87,10 @@
   transform: scale(0.9);
 }
 
+.likeIconNotLiked:hover{
+  color: red
+}
+
 .postLikeCounter {
   font-size: 13px;
 }

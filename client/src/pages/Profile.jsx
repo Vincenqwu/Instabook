@@ -5,6 +5,7 @@ import Leftbar from '../components/Leftbar';
 import Feeds from '../components/Feeds';
 import { useParams } from "react-router";
 import useUserAuth from '../hooks/useUserAuth'
+import Footer from '../components/Footer'
 
 import '../style/profile.css';
 import "../style/page.css" 
@@ -38,7 +39,7 @@ export default function Profile() {
     else {
       getUserInfo();
     }
-  }, []);
+  }, [username]);
 
   useEffect(() => {
     if (isLoggedIn && currUser) {
@@ -129,7 +130,7 @@ export default function Profile() {
       <div className="profile-container">
         <Leftbar />
         <div className="profile-info">
-          <h1>Profile</h1>
+          <h1 className="profile-title">Profile</h1>
           <div className="profile-header">
             <img
               className="profileUserImg"
@@ -147,7 +148,7 @@ export default function Profile() {
 
           </div>
           <div className="profile-details-wrapper">
-            <div className="prifile-details">
+            <div className="profile-details">
               <h4 className="detailsTitle">User information</h4>
               <div className="detailsInfo">
                 <div className="detailsInfoItem">
@@ -180,9 +181,10 @@ export default function Profile() {
             <Feeds
               username={username}
             />
-          </div>
-        </div>
+          </div> 
+        </div>       
       </div>
+      <Footer />
     </>)
   );
 }

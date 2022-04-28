@@ -1,6 +1,7 @@
 import Banner from "../components/Banner";
 import Leftbar from "../components/Leftbar";
 import Feeds from "../components/Feeds";
+import Footer from "../components/Footer";
 // import { useAuthToken } from "../AuthTokenContext"
 import React from "react";
 import "../style/page.css" 
@@ -13,9 +14,11 @@ export default function Home() {
       <Banner/>
       <div className="homeContainer">
         <Leftbar />
-        <Feeds
-          username={null}></Feeds>
+        <div className="homeFeedInfo">
+          <Feeds username={null}/>
+        </div>
       </div>
+      <Footer />
     </>
   );
 }

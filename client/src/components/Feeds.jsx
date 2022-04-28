@@ -40,7 +40,7 @@ export default function Feeds({ username }) {
       <div className="feedWrapper">
         {isLoggedIn && (!username || authInfo.username === username) && <Share/>}
         {posts.map((id) => (
-          <Post postID={id} />
+          <Post key={id} postID={id} />
         ))}
       </div>
     </div>

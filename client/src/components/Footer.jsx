@@ -26,10 +26,10 @@ export default function Footer() {
   	 		<div className="footer-col">
   	 			<h4>Contact</h4>
   	 			<ul>
-  	 				<li><a href="#"><i class="fas fa-address-card"></i>&nbsp; 410 W Georgia St #1400, Vancouver, BC V6B 1Z3</a></li>
-  	 				<li><a href="#"><i class="fa fa-envelope" aria-hidden="true"/>&nbsp; info@northeastern.edu</a></li>
-  	 				<li><a href="#"><i class="fa fa-phone" aria-hidden="true"/> &nbsp;+1 778 783 0609</a></li>
-  	 				<li><a href="#"><i class="fa fa-fax" aria-hidden="true"/>&nbsp; +1 778 783 0609</a></li>
+  	 				<li><a href="#"><i className="fas fa-address-card"></i>&nbsp; 410 W Georgia St #1400, Vancouver, BC V6B 1Z3</a></li>
+  	 				<li><a href="#"><i className="fa fa-envelope" aria-hidden="true"/>&nbsp; info@northeastern.edu</a></li>
+  	 				<li><a href="#"><i className="fa fa-phone" aria-hidden="true"/> &nbsp;+1 778 783 0609</a></li>
+  	 				<li><a href="#"><i className="fa fa-fax" aria-hidden="true"/>&nbsp; +1 778 783 0609</a></li>
   	 			</ul>
   	 		</div>
   	 		<div className="footer-col">

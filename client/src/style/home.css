@@ -8,3 +8,14 @@
 .homeFeedInfo { 
   width: 90%;
 }
+
+@media screen and (max-width: 480px) {
+  .homeContainer {
+    display: block;
+    width: 100%
+  }
+
+  .homeFeedInfo { 
+    width: 100%;
+  }
+}

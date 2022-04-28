@@ -31,3 +31,20 @@
 .leftbarIcon {
   margin-right: 15px;
 }
+
+
+@media screen and (max-width: 480px) {
+
+  .leftbar {
+    height: auto;
+    top:0;
+    bottom:0;
+    position: relative;
+    justify-content: center;
+  }
+
+  .leftbarListItem {
+
+    margin-bottom: 10px;
+  }
+}
