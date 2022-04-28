@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import useUserAuth from '../hooks/useUserAuth'
 import Comment from "./Comment"
 import DeleteIcon from '@mui/icons-material/Delete';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import "../style/post.css"
 
@@ -174,7 +176,7 @@ export default function Post({ postID }) {
           </div>
           {isLoggedIn && postAuthor.username === authInfo.username &&
             <div className="postTopRight">
-              <DeleteIcon onClick={() => deletePost()} />
+              <DeleteIcon className="deleteIcon" onClick={() => deletePost()} />
             </div>
           }
         </div>
@@ -187,7 +189,10 @@ export default function Post({ postID }) {
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            <img className="likeIcon" src={process.env.PUBLIC_URL + "/images/heart.png"} onClick={likeHandler} alt="" />
+            {isLiked ? <FavoriteIcon className= "likeIconLiked" onClick={likeHandler}/>
+            : <FavoriteBorderIcon className= "likeIconNotLiked" onClick={likeHandler}/>}
+            
+            {/* <img className="likeIcon" src={process.env.PUBLIC_URL + "/images/heart.png"} onClick={likeHandler} alt="" /> */}
             <span className="postLikeCounter">{likes} people like it</span>
           </div>
           <div className="postBottomRight">
@@ -195,10 +200,9 @@ export default function Post({ postID }) {
           </div>
         </div>
         <div className="postComments">
-          {/* {isLoggedIn && <button className="postAddCommentButton" onClick={() => setCommentInput(!commentInput)}>+ Add Comment</button>} */}
           {isLoggedIn && <AddPostComment />}
           {comments.map((comment) => (
-            <Comment comment={comment} />
+            <Comment key = {comment.id} comment={comment} />
           ))}
         </div>
       </div>
