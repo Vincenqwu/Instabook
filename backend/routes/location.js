@@ -48,7 +48,7 @@ router.get("/nearby", async (req, res) => {
                     is: {
                         latitude: {
                             gt: user.location.latitude - 0.1,
-                            lt: user.location.latitude + 0,1 
+                            lt: user.location.latitude + 0.1 
                         },
                         longitude: {
                             gt: user.location.longitude - 0.1,
