@@ -1,0 +1,7 @@
+.banner {
+  flex: 1 1 100px;
+}
+
+.bannerWrapper {
+  padding: 10px;
+}
