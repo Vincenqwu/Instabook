@@ -43,6 +43,6 @@ model Comment {
 }
 
 type Location {
-  longitude   String
-  latitude    String
+  longitude   Float
+  latitude    Float
 }

@@ -114,6 +114,36 @@ router.get("/:id", async (req, res) => {
     }
 })
 
+// get multiple posts by a list of ids
+router.post("/", async (req, res) => {
+    try {
+        console.log("get multiple post");
+        const ids = req.body.ids;
+
+        posts = []
+        for (let i = 0; i < ids.length; i++) {
+            let id = ids[i];
+            let post = await prisma.post.findUnique({
+                where: {
+                    id: id
+                }
+            }) 
+            console.log(post.authorId);
+            let user = await prisma.user.findUnique({
+                where: {
+                    auth0Id: post.authorId
+                }
+            }) 
+            post["author"] = user;
+            posts.push(post);
+        }
+        res.status(200).json(posts);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+})
+
 // delete a post
 router.delete("/:id", async (req, res) => {
     try {

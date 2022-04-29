@@ -17,6 +17,7 @@ router.get("/:username", async (req, res) => {
                 }
             }
         });
+        console.log(users);
         res.status(200).json(users);
     } catch (err) {
         console.log(err);

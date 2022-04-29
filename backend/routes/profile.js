@@ -49,4 +49,27 @@ router.put("/", async (req, res) => {
     }
 })
 
+// update user location
+router.put("/location", async (req, res) => {
+    // const userProfile = await prisma.user
+    console.log("PUT /profile/location");
+    try {
+        const {location} = req.body;
+        console.log(location);
+        const auth0Id = req.oidc.user.sub;
+        const user = await prisma.user.update({
+            where: {
+                auth0Id: auth0Id
+            },
+            data: {
+                location: location,
+            },
+        });
+        res.status(200).json(user);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+})
+
 module.exports = router;

@@ -48,7 +48,6 @@ router.get("/verify", async (req, res) => {
     });
 
     if (user) {
-      console.log(user);
       res.status(200).json(user);
     } else {
       const newUser = await prisma.user.create({

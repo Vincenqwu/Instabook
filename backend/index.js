@@ -14,6 +14,7 @@ const authRoute = require("./routes/auth");
 const commentRoute = require("./routes/comment");
 const searchRoute = require("./routes/search");
 const uploadRoute = require("./routes/upload");
+const locationRoute = require("./routes/location")
 
 const corsOptions = {
   origin: process.env.CLIENT_BASE_URL,
@@ -32,6 +33,7 @@ app.use("/profile/", profileRoute);
 app.use("/comment/", commentRoute);
 app.use("/search/", searchRoute);
 app.use("/upload", uploadRoute);
+app.use("/location", locationRoute);
 
 // https
 //     .createServer(
