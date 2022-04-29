@@ -157,7 +157,7 @@ export default function Post({ postID }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`/profile/${postAuthor.username}`}>
+            <Link to={`/profile/${postAuthor.username}`} aria-label="Profile image">
               <img
                 className="postProfileImg"
                 src={postAuthor.picture}
@@ -168,10 +168,10 @@ export default function Post({ postID }) {
               {postAuthor.username}
             </span>
             {authInfo && authInfo.following && authInfo.following.includes(post.authorId) &&
-            <span className="postFollowing">
-              (following) 
-            </span>
-}
+              <span className="postFollowing">
+                (following)
+              </span>
+            }
             <span className="postDate"> {post.createAt.substring(0, 10)}</span>
           </div>
           {isLoggedIn && postAuthor.username === authInfo.username &&
@@ -189,9 +189,9 @@ export default function Post({ postID }) {
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            {isLiked ? <FavoriteIcon className= "likeIconLiked" onClick={likeHandler}/>
-            : <FavoriteBorderIcon className= "likeIconNotLiked" onClick={likeHandler}/>}
-            
+            {isLiked ? <FavoriteIcon className="likeIconLiked" onClick={likeHandler} />
+              : <FavoriteBorderIcon className="likeIconNotLiked" onClick={likeHandler} />}
+
             {/* <img className="likeIcon" src={process.env.PUBLIC_URL + "/images/heart.png"} onClick={likeHandler} alt="" /> */}
             <span className="postLikeCounter">{likes} people like it</span>
           </div>
@@ -202,7 +202,7 @@ export default function Post({ postID }) {
         <div className="postComments">
           {isLoggedIn && <AddPostComment />}
           {comments.map((comment) => (
-            <Comment key = {comment.id} comment={comment} />
+            <Comment key={comment.id} comment={comment} />
           ))}
         </div>
       </div>

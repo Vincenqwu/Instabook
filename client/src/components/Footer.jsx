@@ -35,10 +35,10 @@ export default function Footer() {
   	 		<div className="footer-col">
   	 			<h4>follow us</h4>
   	 			<div className="social-links">
-  	 				<a href="https://www.facebook.com/NortheasternVancouver/"><i className="fab fa-facebook-f"></i></a>
-  	 				<a href="https://twitter.com/northeasternvan"><i className="fab fa-twitter"></i></a>
-  	 				<a href="https://www.instagram.com/northeastern/?hl=en"><i className="fab fa-instagram"></i></a>
-  	 				<a href="https://www.linkedin.com/showcase/northeasternvancouver"><i className="fab fa-linkedin-in"></i></a>
+  	 				<a href="https://www.facebook.com/NortheasternVancouver/" aria-label="link to Facebook"><i className="fab fa-facebook-f"></i></a>
+  	 				<a href="https://twitter.com/northeasternvan" aria-label="link to Twitter"><i className="fab fa-twitter"></i></a>
+  	 				<a href="https://www.instagram.com/northeastern/?hl=en" aria-label="link to Instagram"><i className="fab fa-instagram"></i></a>
+  	 				<a href="https://www.linkedin.com/showcase/northeasternvancouver" aria-label="link to Linkedin"><i className="fab fa-linkedin-in"></i></a>
   	 			</div>
   	 		</div>
   	 	</div>
@@ -46,3 +46,8 @@ export default function Footer() {
   </footer>
   );
 }
+
+/* References:
+ https://drive.google.com/file/d/12DNl4xsajW8Crzf5YqMwDksH_1y0jwhk/view 
+ https://www.youtube.com/watch?v=YOb67OKw62s
+ */

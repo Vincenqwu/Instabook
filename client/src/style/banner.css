@@ -1,13 +1,15 @@
 .bannerContainer {
   height: 60px;
   width: 100%;
-  background-color: #15a3bd;
+  background-color: green;
   display: flex;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 2;
 }
+
+/* #15a3bd; */
 
 .bannerLeft {
   flex: 2;
@@ -40,8 +42,7 @@
 }
 
 .btn-loginout:hover{
-  background-color:red;
-  color: white;
+  background-color:gainsboro;
 }
 
 .bannerImg {
@@ -95,38 +96,48 @@
 }
 
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 510px) {
   .bannerContainer {
-    height: 80px;
+    height: 105px;
+    display: block;
   }
 
-  .bannerLeft {
-    flex: 1;
-  }
-  
+
   .bannerMiddle {
-    flex: 2;
-  }
+    width: 70%
+  } 
+
   .bannerRight {
-    padding-left: 22px;
-    flex: 1;
-    display: inline-block;
-    align-items: center;
-   }
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 
  .logo { 
-   font-size: 22px
+   font-size: 26px;
+   margin-left: 10px
+ }
+
+ .searchbar {
+   margin-top: 5px;
+   margin-left: 10px;
+   height: 25px;
  }
 
  .btn-loginout {
-  width: 40px;
-  height: 18px;
+  width: 42px;
+  height: 20px;
   font-size: 12px;
  }
 
  .bannerProfile {
    margin-top: 12px;
  }
-
+ 
+ .bannerImg {
+  width: 30px;
+  height: 30px;
+ }
+ 
 
 }

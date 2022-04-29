@@ -24,7 +24,7 @@ export default function Banner() {
           let name = document.getElementsByClassName("searchInput")[0].value;
             navigate(`/search/${name}`);
           }}>
-          <button type="submit" className="searchButton">
+          <button type="submit" aria-label="search" className="searchButton">
             <SearchIcon className="searchIcon" onClick={() => console.log("here")} />
           </button>
           <input type="text" required placeholder="Search for a user by username" className="searchInput" />
@@ -51,7 +51,7 @@ export default function Banner() {
         </div>
         <div className="bannerProfile">
           {isLoggedIn ? (
-            <Link to={`/profile/${authInfo.username}`}>
+            <Link to={`/profile/${authInfo.username}`} aria-label="Profile image">
               <img
                 src={
                   authInfo.picture
@@ -65,6 +65,7 @@ export default function Banner() {
               src={process.env.PUBLIC_URL + "/images/noAvatar.png"}
               alt=""
               className="bannerImg"
+              aria-label="Not logged in"
             />
           )}
         </div>

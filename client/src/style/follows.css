@@ -6,3 +6,15 @@
 .followsWrapper {
   flex: 1;
 }
+
+@media screen and (max-width: 510px) {
+  .followsContainer {
+    display: block;
+  }
+
+  .followsWrapper {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+

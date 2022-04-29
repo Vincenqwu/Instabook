@@ -138,7 +138,7 @@ export default function Profile() {
               alt=""
             />
 
-            <h4 className="profileInfoName">{currUser?.username}</h4>
+            <p className="profileInfoName">{currUser?.username}</p>
 
             {isLoggedIn && authInfo.username !== username && (
               <button className="profileFollowButton" onClick={handleFollow}>
