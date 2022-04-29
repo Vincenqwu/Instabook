@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
@@ -8,8 +8,13 @@ import Follows from "./pages/Follows";
 import Nearby from "./pages/Nearby";
 import Search from "./pages/Search";
 import { AuthTokenProvider } from "./AuthTokenContext";
+import ReactDOM from "react-dom/client";
 
-ReactDOM.render(
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
   <React.StrictMode>
     <AuthTokenProvider>
       <BrowserRouter>
@@ -25,6 +30,5 @@ ReactDOM.render(
         </Routes>
       </BrowserRouter>
     </AuthTokenProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+  </React.StrictMode>
+  );
