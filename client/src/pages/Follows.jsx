@@ -5,20 +5,17 @@ import Leftbar from "../components/Leftbar";
 import Banner from "../components/Banner";
 import useUserAuth from "../hooks/useUserAuth";
 import Footer from "../components/Footer";
+import { useEffect, useState } from "react";
 
 
 
 export default function Follows({forFollower}) {
     const [ authInfo, isLoggedIn ] = useUserAuth();
     const username = authInfo.username;
-    const followers = authInfo.follower;
-    const followings = authInfo.following;
-    console.log("username: " + username);
-    console.log("isLoggedIn: "+ isLoggedIn);
-    const follows = forFollower ? followers : followings;
-    // TODO: if no followers/followings yet, give some words
+    const follows = forFollower ? authInfo.follower : authInfo.following;
+    console.log("in Follows useEffect")
     return (
-        <>
+        follows && (<>
         <Banner/>
         <div className="followsContainer">
             <Leftbar/>
@@ -31,6 +28,6 @@ export default function Follows({forFollower}) {
             </div>
         </div>
         <Footer />
-        </>
+        </>)
     )
 }

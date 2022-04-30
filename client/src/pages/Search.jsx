@@ -43,7 +43,7 @@ export default function Search() {
                 } */}
                
                 {users.map((u) => (
-                  <UserIntro key={u.auth0Id} followId={u.auth0Id} authInfo={(authInfo.username !== undefined && username)?  authInfo:null}/>
+                  <UserIntro key={u.auth0Id} followId={u.auth0Id} authInfo={(authInfo.username !== undefined && username)?  authInfo:null} forSearch={true}/>
                 ))
                 }
           </div>

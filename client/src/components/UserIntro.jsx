@@ -7,13 +7,15 @@ import useUserAuth from "../hooks/useUserAuth";
 
 
 // when user not logged in, leave authInfo blank or null
-export default function UserIntro({followId, authInfo}) {
+// export default function UserIntro({followId, authInfo}) {
+export default function UserIntro({followId, authInfo, forSearch}) {
+    // const username = authInfo.username;
     const loggedIn = authInfo ? true : false;
     let followings = [];
     const [followUser, setFollowUser] = useState();
-    if(loggedIn){
+    if(loggedIn && authInfo.following){
         followings = authInfo.following;
-        console.log(followings);
+        // console.log("followings: " + followings);
     }
     useEffect(() => {
         async function getUserInfo(){
@@ -27,8 +29,10 @@ export default function UserIntro({followId, authInfo}) {
         }  
         getUserInfo();
     }, [])
-
+    console.log("followings: " + followings);
+    console.log("followId: " + followId);
     const [followed, setFollowed] = useState(followings.includes(followId));
+    console.log("followed: "+ followed);
     const handleClick = async () =>{
         try{
             if(followed){
@@ -49,7 +53,7 @@ export default function UserIntro({followId, authInfo}) {
     }
 
     return (
-        followUser && (
+        followings && followUser && (
         <div className="UserIntro">
             <div className="UserIntroWrapper">
                 <div className="userIntroLeft">
@@ -61,7 +65,8 @@ export default function UserIntro({followId, authInfo}) {
                     </Link>
                 </div>
                 <div className="userIntroRight">
-                    <button className="followButton" onClick={handleClick} style={{display: (loggedIn?undefined:"none")}}>
+                    {/* {(isLoggedIn===true && username) ? */}
+                    <button className="followButton" onClick={handleClick} style={{display: ((!loggedIn || followUser.username === authInfo.username || forSearch)?"none":undefined)}}>
                     {followed ? "Unfollow" : "Follow"}
                     </button>
                 </div>
