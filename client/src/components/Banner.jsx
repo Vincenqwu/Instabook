@@ -66,6 +66,7 @@ export default function Banner() {
               alt=""
               className="bannerImg"
               aria-label="Not logged in"
+              onClick={()=> {window.location.href = `${process.env.REACT_APP_API_URL}/login`;}}
             />
           )}
         </div>
