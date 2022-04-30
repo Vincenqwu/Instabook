@@ -31,4 +31,4 @@ root.render(
       </BrowserRouter>
     </AuthTokenProvider>
   </React.StrictMode>
-  );
+);

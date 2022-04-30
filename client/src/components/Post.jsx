@@ -147,7 +147,7 @@ export default function Post({ postID }) {
 
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && post) {
       console.log(post.likedBy)
       setIsLiked(post.likedBy?.includes(authInfo.auth0Id));
     }
