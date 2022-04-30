@@ -16,7 +16,7 @@ export default function Banner() {
     <div className="bannerContainer">
       <div className="bannerLeft">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">Instabook</span>
+          <span aria-label="Instabook Logo click to home page" className="logo">Instabook</span>
         </Link>
       </div>
       <div className="bannerMiddle">

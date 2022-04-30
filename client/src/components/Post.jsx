@@ -114,14 +114,16 @@ export default function Post({ postID }) {
     return (
       <div className="addPostComment">
         <input
+        aria-label = "comment input"
           placeholder="How do you like this post?"
           className="postCommentInput"
           value={inputValue}
+          maxlength="200"
           onChange={handleUserInput}
         />
         <hr />
         {/* <button className="sharePostButton" onClick={postComment}>+</button> */}
-        <AddCircleIcon className="sharePostButton" onClick={postComment} />
+        <AddCircleIcon aria-label = "add post comment" className="sharePostButton" onClick={postComment} />
       </div>
     )
   }
@@ -167,7 +169,7 @@ export default function Post({ postID }) {
                 alt=""
               />
             </Link>
-            <span className="postUsername">
+            <span aria-label = "Profile username" className="postUsername">
               {postAuthor.username}
             </span>
             {authInfo && authInfo.following && authInfo.following.includes(post.authorId) &&
@@ -178,12 +180,12 @@ export default function Post({ postID }) {
             <span className="postDate"> {post.createAt.substring(0, 10)}</span>
           </div>
           {isLoggedIn && postAuthor.username === authInfo.username &&
-            <div className="postTopRight">
+            <div aria-label = "delete icon" className="postTopRight">
               <DeleteIcon className="deleteIcon" onClick={() => deletePost()} />
             </div>
           }
         </div>
-        <div className="postCenter">
+        <div aria-label="post image" className="postCenter">
           <span className="postText">{post.content}</span>
           {
             post.image &&
@@ -191,7 +193,7 @@ export default function Post({ postID }) {
           }
         </div>
         <div className="postBottom">
-          <div className="postBottomLeft">
+          <div aria-label = "Likes button" className="postBottomLeft">
             {isLiked ? <FavoriteIcon className="likeIconLiked" onClick={likeHandler} />
               : <FavoriteBorderIcon className="likeIconNotLiked" onClick={likeHandler} />}
 
