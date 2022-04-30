@@ -114,7 +114,7 @@ export default function Post({ postID }) {
     return (
       <div className="addPostComment">
         <input
-        aria-label = "comment input"
+          aria-label = "comment input"
           placeholder="How do you like this post?"
           className="postCommentInput"
           value={inputValue}
@@ -123,7 +123,9 @@ export default function Post({ postID }) {
         />
         <hr />
         {/* <button className="sharePostButton" onClick={postComment}>+</button> */}
-        <AddCircleIcon aria-label = "add post comment" className="sharePostButton" onClick={postComment} />
+        <div className="sharePostDiv" aria-label = "add post comment">
+          <AddCircleIcon  className="sharePostButton" onClick={postComment} />
+        </div>
       </div>
     )
   }
