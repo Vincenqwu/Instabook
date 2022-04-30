@@ -6,15 +6,12 @@ import useUserAuth from "../hooks/useUserAuth";
 
 export default function Leftbar() { 
   const [ authInfo, isLoggedIn ] = useUserAuth();
-  console.log("isLoggedIn: " + isLoggedIn);
   const username = authInfo.username;
   return (
     <div className="leftbar">
       <div className="leftbarWrapper">
       <ul className="leftbarList">
           <li className="leftbarListItem">
-
-          {/* TODO: Link to /profile/:username*/}
           <Link to={`/profile/${username}`} style={{ textDecoration: "none" }}>
             <AccountCircle className="leftbarIcon"/>
             <span className="leftbarListItemText">Profile</span>

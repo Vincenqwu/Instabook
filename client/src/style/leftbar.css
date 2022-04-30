@@ -25,10 +25,12 @@
 
 .leftbarListItemText{
   font-size: large;
-  /* font-weight: bold; */
+  color:darkgreen;
+  font-weight: 500;
 }
 
 .leftbarIcon {
+  color: darkgreen;
   margin-right: 15px;
 }
 

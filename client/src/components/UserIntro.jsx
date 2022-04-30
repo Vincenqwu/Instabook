@@ -6,15 +6,15 @@ import {Users} from "../dummyData";
 import useUserAuth from "../hooks/useUserAuth";
 
 
-
+// when user not logged in, leave authInfo blank or null
 export default function UserIntro({followId, authInfo}) {
-    // TODO check if fetch is correct.
-    // const user = Users.filter((user)=> user.username === "Safak Kocaoglu");
-    // const [ authInfo, isLoggedIn ] = useUserAuth();
-    // console.log("authInfo in UserIntro: "+authInfo)
-    const username = authInfo.username;
-    const followings = authInfo.following;
+    const loggedIn = authInfo ? true : false;
+    let followings = [];
     const [followUser, setFollowUser] = useState();
+    if(loggedIn){
+        followings = authInfo.following;
+        console.log(followings);
+    }
     useEffect(() => {
         async function getUserInfo(){
             try{
@@ -28,9 +28,6 @@ export default function UserIntro({followId, authInfo}) {
         getUserInfo();
     }, [])
 
-    console.log("followUser: "+followUser)
-
-    //TODO check if use the followName or auth0Id
     const [followed, setFollowed] = useState(followings.includes(followId));
     const handleClick = async () =>{
         try{
@@ -56,7 +53,6 @@ export default function UserIntro({followId, authInfo}) {
         <div className="UserIntro">
             <div className="UserIntroWrapper">
                 <div className="userIntroLeft">
-                    {/* TODO: follower/following's image */}
                     <Link to={`/profile/${followUser.username}`} style={{ textDecoration: "none" }}>
                         <img className="userImg" src={followUser?.picture} alt="" />
                     </Link>
@@ -65,7 +61,7 @@ export default function UserIntro({followId, authInfo}) {
                     </Link>
                 </div>
                 <div className="userIntroRight">
-                    <button className="followButton" onClick={handleClick}>
+                    <button className="followButton" onClick={handleClick} style={{display: (loggedIn?undefined:"none")}}>
                     {followed ? "Unfollow" : "Follow"}
                     </button>
                 </div>

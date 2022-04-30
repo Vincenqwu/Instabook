@@ -35,11 +35,16 @@ export default function Search() {
       <div className="followsContainer">
           <Leftbar/>
           <div className="followsWrapper">
-                {
+                {/* {
                     (authInfo.username !== undefined && username)?
                     users.map((u) => (
                         <UserIntro key={u.auth0Id} followId={u.auth0Id} authInfo={authInfo}/>
                     )) : <></>
+                } */}
+               
+                {users.map((u) => (
+                  <UserIntro key={u.auth0Id} followId={u.auth0Id} authInfo={(authInfo.username !== undefined && username)?  authInfo:null}/>
+                ))
                 }
           </div>
       </div>
