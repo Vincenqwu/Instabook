@@ -14,6 +14,7 @@ router.get("/:username", async (req, res) => {
             where: {
                 username: {
                     startsWith: username,
+                    mode: 'insensitive'
                 }
             }
         });
