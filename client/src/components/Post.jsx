@@ -148,7 +148,7 @@ export default function Post({ postID }) {
       console.log(post.likedBy)
       setIsLiked(post.likedBy?.includes(authInfo.auth0Id));
     }
-  }, [post]);
+  }, [post, authInfo]);
 
 
   return (
