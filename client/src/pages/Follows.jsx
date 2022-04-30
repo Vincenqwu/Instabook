@@ -5,7 +5,6 @@ import Leftbar from "../components/Leftbar";
 import Banner from "../components/Banner";
 import useUserAuth from "../hooks/useUserAuth";
 import Footer from "../components/Footer";
-import { useEffect, useState } from "react";
 
 
 
@@ -15,7 +14,7 @@ export default function Follows({forFollower}) {
     const follows = forFollower ? authInfo.follower : authInfo.following;
     console.log("in Follows useEffect")
     return (
-        follows && (<>
+        <>
         <Banner/>
         <div className="followsContainer">
             <Leftbar/>
@@ -28,6 +27,6 @@ export default function Follows({forFollower}) {
             </div>
         </div>
         <Footer />
-        </>)
+        </>
     )
 }
