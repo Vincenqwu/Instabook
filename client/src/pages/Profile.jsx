@@ -33,7 +33,7 @@ export default function Profile() {
         const res = await response.json();
         setCurrUser(res);
         if (!res) {
-          navigate('/home')
+          window.location.href = `${process.env.REACT_APP_API_URL}/login`;
         }
       } catch (err) {
         console.error(err);
