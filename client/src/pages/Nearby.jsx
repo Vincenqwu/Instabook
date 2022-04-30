@@ -71,7 +71,8 @@ export default function Nearby() {
             lat: e.location.latitude,
             lng: e.location.longitude
           },
-          picture: e.picture
+          picture: e.picture,
+          username: e.username
         }
       });
       // console.log("__", _);
@@ -112,7 +113,7 @@ export default function Nearby() {
             {
               (markers.length !== 0)?
               markers.map((e) => (
-                  <Marker key={e.auth0Id} position={e.position} icon={{url: e.picture, scaledSize:{width: 20, height: 20}}} />
+                  <Marker key={e.auth0Id} onClick={() => {window.location.href=`profile/${e.username}`}} position={e.position} icon={{url: e.picture, scaledSize:{width: 20, height: 20}}} />
               )): <></>
             }
           </GoogleMap>
