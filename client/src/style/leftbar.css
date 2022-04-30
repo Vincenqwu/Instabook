@@ -16,7 +16,7 @@
   list-style: none;
 }
 
-.leftbarListItem {
+.leftbarListItem a {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
