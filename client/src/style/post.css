@@ -136,6 +136,10 @@
   margin-bottom: 12px;
 }
 
+.addPostComment svg {
+  margin-top: 10px;
+}
+
 .sharePostButton {
   color: green;
   cursor: pointer;
