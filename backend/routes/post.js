@@ -156,6 +156,20 @@ router.delete("/:id", async (req, res) => {
         });
 
         console.log(post);
+        
+        // delete all its comments first
+        await Promise.all(post.comments.map(async (c) => {
+            try {
+                await prisma.comment.delete({
+                    where: {
+                        id: c
+                    }
+                })
+            } catch (err) {
+                throw err;
+            }
+        }))
+        
 
         const posts = await prisma.user.findUnique({
             where: {
@@ -175,7 +189,7 @@ router.delete("/:id", async (req, res) => {
             }
         });
 
-        let _ = await prisma.post.delete({
+        await prisma.post.delete({
             where: {
                 id: id
             }
