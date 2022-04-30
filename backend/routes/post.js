@@ -2,12 +2,13 @@ const router = require("express").Router();
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient();
 const { requiresAuth } = require('express-openid-connect');
+const { body, validationResult } = require('express-validator');
 
 // Get post feed
 router.get("/feed", async (req, res) => {
     console.log("/feed")
     try {
-        // not logged in 
+        // not logged in
         if (req.oidc.user === undefined) {
             // TODO
             // get latest posts
@@ -18,7 +19,7 @@ router.get("/feed", async (req, res) => {
             }).then( data => data.map(e => e.id));
             res.status(200).json(posts)
         }
-        // logged in 
+        // logged in
         else {
             // TODO
             // get posts from followed users
@@ -35,9 +36,15 @@ router.get("/feed", async (req, res) => {
 })
 
 // Create a new post
-router.post("/create", requiresAuth(), async (req, res) => {
+router.post("/create", requiresAuth(),
+    body('content').notEmpty().isLength({max: 500}), async (req, res) => {
     try {
         console.log("create");
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.log(errors);
+        return res.status(400).json({ errors: errors.array() });
+        }
         const auth0Id = req.oidc.user.sub;
         const content = req.body.content;
         const image = req.body.image;
@@ -123,13 +130,13 @@ router.post("/", async (req, res) => {
                 where: {
                     id: id
                 }
-            }) 
+            })
             console.log(post.authorId);
             let user = await prisma.user.findUnique({
                 where: {
                     auth0Id: post.authorId
                 }
-            }) 
+            })
             post["author"] = user;
             posts.push(post);
         }
@@ -152,7 +159,7 @@ router.delete("/:id", requiresAuth(), async (req, res) => {
         });
 
         console.log(post);
-        
+
         // delete all its comments first
         await Promise.all(post.comments.map(async (c) => {
             try {
@@ -165,7 +172,7 @@ router.delete("/:id", requiresAuth(), async (req, res) => {
                 throw err;
             }
         }))
-        
+
 
         const posts = await prisma.user.findUnique({
             where: {
@@ -223,7 +230,7 @@ router.put("/:id/like", requiresAuth(), async (req, res) => {
                 id: id,
             },
             data: {
-                likedBy: likedBy 
+                likedBy: likedBy
             }
         });
         res.status(200).json(post);
@@ -256,7 +263,7 @@ router.put("/:id/unlike", requiresAuth(), async (req, res) => {
                 id: id,
             },
             data: {
-                likedBy: likedBy 
+                likedBy: likedBy
             }
         });
         res.status(200).json(post);
@@ -288,8 +295,13 @@ router.get("/from/:username", async (req, res) => {
 })
 
 // create a comment for post
-router.post("/:id/comment", requiresAuth(), async (req, res) => {
+router.post("/:id/comment",
+    body('content').notEmpty().isLength({max: 200}), requiresAuth(), async (req, res) => {
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+        }
         console.log("commenting");
         const { id } = req.params;
         const auth0Id = req.oidc.user.sub;

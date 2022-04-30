@@ -2,12 +2,18 @@ const router = require("express").Router();
 const {PrismaClient, Gender} = require("@prisma/client")
 const prisma = new PrismaClient();
 const { requiresAuth } = require('express-openid-connect');
+const { body, check, validationResult } = require('express-validator');
 
 // update user location
-router.put("/update", async (req, res) => {
+router.put("/update", 
+    body("location").isFloat({min: -180, max: 180}), async (req, res) => {
     // const userProfile = await prisma.user
     console.log("PUT /location/update");
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+        }
         const {location} = req.body;
         console.log(location);
         const auth0Id = req.oidc.user.sub;

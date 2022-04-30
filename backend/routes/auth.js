@@ -50,6 +50,10 @@ router.get("/verify", async (req, res) => {
     if (user) {
       res.status(200).json(user);
     } else {
+
+      // validate
+      
+
       const newUser = await prisma.user.create({
         data: {
           auth0Id: auth0Id,
