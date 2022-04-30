@@ -38,53 +38,10 @@ router.get("/id/:id", async (req, res) => {
     }
 })
 
-// get a user's nearby users
-// router.get("/nearby", async (req, res) => {
-//     try {
-//         console.log("/nearby, laksjdlkasjdlkj");
-//         console.log("lkajsdlkj");
-//         const auth0Id = req.oidc.user.sub;
-//         console.log(auth0Id);
-//         const user = await prisma.user.findUnique({
-//             where: {
-//                 auth0Id: auth0Id,
-//             },
-//         });
-//         if(user.location === null) {
-//             throw "cannot determine user's location"
-//         }
-        
-//         console.log("getting users");
-//         const users = await prisma.user.findMany({
-//             where: {
-//                 location: {
-//                     latitude: {
-//                         gt: user.location.latitude - 10,
-//                         lt: user.location.latitude + 10 
-//                     },
-//                     longitude: {
-//                         gt: user.location.longitude - 10,
-//                         lt: user.location.longitude + 10 
-//                     }
-//                 }
-//             }
-//         })
-//         console.log(users);
-//         res.status(200).json(users);
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).json(err);
-//     }
-// })
-
-
-router.get("/testtest", async (req, res) => {
-    res.status(200).json("haha");
-})
 
 
 // follow a user
-router.put("/:username/follow", async (req, res) => {
+router.put("/:username/follow", requiresAuth(), async (req, res) => {
     try {
         console.log("follow");
         const { username } = req.params;
@@ -137,7 +94,7 @@ router.put("/:username/follow", async (req, res) => {
 })
 
 // unfollow a user
-router.put("/:username/unfollow", async (req, res) => {
+router.put("/:username/unfollow", requiresAuth(), async (req, res) => {
     try {
         console.log("unfollow");
         const { username } = req.params;

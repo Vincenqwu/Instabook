@@ -26,7 +26,7 @@ const upload = multer({
 });
 
 // upload an image to server
-router.post("/", upload.single("file"), async (req, res) => {
+router.post("/", upload.single("file"), requiresAuth(), async (req, res) => {
     try {
         console.log("uploading");
         res.status(200).json("uploaded");

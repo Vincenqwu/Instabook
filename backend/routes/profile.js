@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
 })
 
 // modify account information
-router.put("/", async (req, res) => {
+router.put("/", requiresAuth(),  async (req, res) => {
     // const userProfile = await prisma.user
     console.log("PUT /profile");
     try {
@@ -50,7 +50,7 @@ router.put("/", async (req, res) => {
 })
 
 // update user location
-router.put("/location", async (req, res) => {
+router.put("/location", requiresAuth(), async (req, res) => {
     // const userProfile = await prisma.user
     console.log("PUT /profile/location");
     try {

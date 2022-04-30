@@ -27,7 +27,7 @@ router.put("/update", async (req, res) => {
 })
 
 // get a user's nearby users
-router.get("/nearby", async (req, res) => {
+router.get("/nearby", requiresAuth(), async (req, res) => {
     try {
         console.log("/nearby");
         const auth0Id = req.oidc.user.sub;

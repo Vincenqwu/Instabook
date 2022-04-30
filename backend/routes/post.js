@@ -35,7 +35,7 @@ router.get("/feed", async (req, res) => {
 })
 
 // Create a new post
-router.post("/create", async (req, res) => {
+router.post("/create", requiresAuth(), async (req, res) => {
     try {
         console.log("create");
         const auth0Id = req.oidc.user.sub;
@@ -145,7 +145,7 @@ router.post("/", async (req, res) => {
 })
 
 // delete a post
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", requiresAuth(), async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -203,7 +203,7 @@ router.delete("/:id", async (req, res) => {
 })
 
 // like a post
-router.put("/:id/like", async (req, res) => {
+router.put("/:id/like", requiresAuth(), async (req, res) => {
     try {
         const { id } = req.params;
         const auth0Id = req.oidc.user.sub;
@@ -238,7 +238,7 @@ router.put("/:id/like", async (req, res) => {
 })
 
 // unlike a post
-router.put("/:id/unlike", async (req, res) => {
+router.put("/:id/unlike", requiresAuth(), async (req, res) => {
     try {
         const { id } = req.params;
         const auth0Id = req.oidc.user.sub;
@@ -292,7 +292,7 @@ router.get("/from/:username", async (req, res) => {
 })
 
 // create a comment for post
-router.post("/:id/comment", async (req, res) => {
+router.post("/:id/comment", requiresAuth(), async (req, res) => {
     try {
         console.log("commenting");
         const { id } = req.params;
