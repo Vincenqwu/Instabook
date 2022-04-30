@@ -123,9 +123,17 @@ export default function Profile() {
         <label className = "profileEditLabel">Last Name:
           <input type="text" name="lastname" />
         </label>
-        <label className = "profileEditLabel">Gender
+        {/* <label className = "profileEditLabel">Gender
           <input type="text" name="gender" />
-        </label>
+        </label> */}
+
+        <label className = "profileEditLabel" for="gender">Gender</label>
+        <select name="gender" id="edit-score" required>
+          <option value="" selected disabled hidden>Choose</option>
+          <option value="MALE">Male</option>
+          <option value="FEMALE">Female</option>
+        </select>
+
         <button className="profileEditButton2" type="submit"> Submit</button>
         <button className="profileEditButton3" type="button" onClick={() => setViewForm(false)}> Cancel </button>
       </form>
@@ -158,7 +166,7 @@ export default function Profile() {
           </div>
           <div className="profile-details-wrapper">
             <div className="profile-details">
-              <h4 className="detailsTitle">User information</h4>
+              <h4 className="detailsTitle">User Information</h4>
               <div className="detailsInfo">
                 <div className="detailsInfoItem">
                   <span className="detailsInfoKey">First Name: &nbsp;</span>
