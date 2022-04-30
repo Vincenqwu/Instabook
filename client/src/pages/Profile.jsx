@@ -7,6 +7,9 @@ import { useParams } from "react-router";
 import useUserAuth from '../hooks/useUserAuth'
 import Footer from '../components/Footer'
 
+import { useNavigate } from "react-router-dom";
+
+
 import '../style/profile.css';
 import "../style/page.css" 
 
@@ -16,6 +19,8 @@ export default function Profile() {
   const username = useParams().username;
   const [viewForm, setViewForm] = useState(false);
   const [followed, setFollowed] = useState(false);
+
+  const navigate = useNavigate();
 
   // Fetch the user's data by username endpoint
   // If current user's profile, set the user as currUser
@@ -27,6 +32,9 @@ export default function Profile() {
         });
         const res = await response.json();
         setCurrUser(res);
+        if (!res) {
+          navigate('/home')
+        }
       } catch (err) {
         console.error(err);
       }
@@ -99,6 +107,7 @@ export default function Profile() {
         });
         const updatedUser = await response.json();
         setCurrUser(updatedUser);
+        setViewForm(false)
         console.log('Success', updatedUser);
       }
       catch (err) {
