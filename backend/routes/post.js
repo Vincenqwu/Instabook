@@ -95,17 +95,13 @@ router.get("/:id", async (req, res) => {
             }
         })
         // add all comments to post json
-        let comments = [];
-        for(let i = 0; i < post.comments.length; i++) {
-            let comment = await prisma.comment.findUnique({
+        post.comments = await Promise.all(post.comments.map( async (c) => {
+            return await prisma.comment.findUnique({
                 where: {
-                    id: post.comments[i]
+                    id: c
                 }
             });
-            console.log(comment);
-            comments.push(comment);
-        }
-        post.comments = comments;
+        }));
 
         res.status(200).json(post);
     } catch (err) {
