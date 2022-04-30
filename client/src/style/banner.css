@@ -96,7 +96,7 @@
 }
 
 
-@media screen and (max-width: 510px) {
+@media screen and (max-width: 480px) {
   .bannerContainer {
     height: 105px;
     display: block;
