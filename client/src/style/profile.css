@@ -54,6 +54,7 @@
 .profileEditForm {
   display: flex;
   flex-direction: column;
+  width: fit-content;
 }
 
 .profileFollowButton {
@@ -92,7 +93,7 @@
   background-color: green;
   cursor: pointer;
   color: white;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 .profileEditButton3 {

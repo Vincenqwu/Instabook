@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 
 import '../style/profile.css';
-import "../style/page.css" 
+import "../style/page.css"
 
 export default function Profile() {
   const [authInfo, isLoggedIn] = useUserAuth();
@@ -117,22 +117,23 @@ export default function Profile() {
 
     return (
       <form className="profileEditForm" onSubmit={handleSubmit}>
-        <label className = "profileEditLabel">First Name:
+        <label className="profileEditLabel">First Name:
           <input type="text" name="firstname" />
         </label>
-        <label className = "profileEditLabel">Last Name:
+        <label className="profileEditLabel">Last Name:
           <input type="text" name="lastname" />
         </label>
         {/* <label className = "profileEditLabel">Gender
           <input type="text" name="gender" />
         </label> */}
 
-        <label className = "profileEditLabel" for="gender">Gender</label>
-        <select name="gender" id="edit-score" required>
-          <option value="" selected disabled hidden>Choose</option>
-          <option value="MALE">Male</option>
-          <option value="FEMALE">Female</option>
-        </select>
+        <label className="profileEditLabel" for="gender">Gender:&nbsp;
+          <select name="gender" id="edit-score" required>
+            <option value="" selected disabled hidden>Choose</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+          </select>
+        </label>
 
         <button className="profileEditButton2" type="submit"> Submit</button>
         <button className="profileEditButton3" type="button" onClick={() => setViewForm(false)}> Cancel </button>
@@ -198,8 +199,8 @@ export default function Profile() {
             <Feeds
               username={username}
             />
-          </div> 
-        </div>       
+          </div>
+        </div>
       </div>
       <Footer />
     </>)
