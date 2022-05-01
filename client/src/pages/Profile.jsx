@@ -127,7 +127,7 @@ export default function Profile() {
           <input type="text" name="gender" />
         </label> */}
 
-        <label className="profileEditLabel" for="gender">Gender:&nbsp;
+        <label className="profileEditLabel" htmlFor="gender">Gender:&nbsp;
           <select name="gender" id="edit-score" required>
             <option value="" selected disabled hidden>Choose</option>
             <option value="MALE">Male</option>

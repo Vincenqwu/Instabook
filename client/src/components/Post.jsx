@@ -118,7 +118,7 @@ export default function Post({ postID }) {
           placeholder="How do you like this post?"
           className="postCommentInput"
           value={inputValue}
-          maxlength="200"
+          maxLength="200"
           onChange={handleUserInput}
         />
         <hr />

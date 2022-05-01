@@ -68,7 +68,7 @@ export default function Share() {
             placeholder={"What's on your mind? " + authInfo.username}
             className="shareInput"
             ref={inputRef}
-            maxlength="500"
+            maxLength="500"
           />
         </div>
         <hr className="shareHr" />
