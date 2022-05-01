@@ -50,3 +50,9 @@ Using Mongodb Atlas
 ![following](https://i.imgur.com/6vPrjcJh.jpg)
 
 ![nearby](https://i.imgur.com/QWrhZGJh.jpg)
+
+## References
+
+https://github.com/safak/youtube/tree/mern-social-app
+
+https://www.youtube.com/watch?v=YOb67OKw62s
