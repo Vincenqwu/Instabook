@@ -6,12 +6,14 @@ const { body, check, validationResult } = require('express-validator');
 
 // update user location
 router.put("/update", 
-    body("location").isFloat({min: -180, max: 180}), async (req, res) => {
+    body("location.latitude").isFloat({min: -180, max: 180}),
+    body("location.longitude").isFloat({min: -180, max: 180}), async (req, res) => {
     // const userProfile = await prisma.user
     console.log("PUT /location/update");
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
+            console.log(errors);
         return res.status(400).json({ errors: errors.array() });
         }
         const {location} = req.body;
