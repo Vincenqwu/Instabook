@@ -35,18 +35,18 @@ app.use("/search/", searchRoute);
 app.use("/upload", uploadRoute);
 app.use("/location", locationRoute);
 
-// https
-//     .createServer(
-//         {
-//             key: fs.readFileSync("key.pem"),
-//             cert: fs.readFileSync("cert.pem")
-//         },
-//         app
-//     )
-//     .listen(443, () => {
-//         console.log("server is running at port 443");
-//     })
+https
+    .createServer(
+        {
+            key: fs.readFileSync("key.pem"),
+            cert: fs.readFileSync("cert.pem")
+        },
+        app
+    )
+    .listen(8443, () => {
+        console.log("server is running at port 8443");
+    })
 
-app.listen(8000, "0.0.0.0", () => {
-    console.log("server running on 8000");
-})
+//app.listen(8000, "0.0.0.0", () => {
+//    console.log("server running on 8000");
+//})
