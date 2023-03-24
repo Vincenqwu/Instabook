@@ -1,4 +1,3 @@
-# assignment-03
 
 ## NOTICE
 
